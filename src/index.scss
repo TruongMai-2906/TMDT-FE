@@ -1,0 +1,47 @@
+// @import './scss/style.scss';
+@import './scss/variables';
+@import './scss/sidebar';
+@import './scss/navbar';
+// @import './scss/wraper';
+// @import 'src/scss/style.scss';
+// @import 'src/assest/styles/global';
+
+////////   MISC  //////////////
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+////////// COLOR SYSTEM //////////
+
+.banner-introduce {
+    width: 100%;
+    padding: 100px 0px;
+    background: url('./assest/images/banner-5.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.haha {
+    display: flex;
+
+    .search-input {
+        @media only screen and (max-width: 600px) {
+            display: block;
+            flex: 1;
+            margin-right: 10px;
+        }
+        display: none;
+        font-size: 18px;
+        background: white none repeat scroll 0 0;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        color: #161515;
+        transition: all 1s linear;
+        height: 25px;
+    }
+
+    &:hover .search-input {
+        display: block;
+    }
+}
