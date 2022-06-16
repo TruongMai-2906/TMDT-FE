@@ -57,7 +57,7 @@ export default function ProductDetail() {
                 <Row gutter={5}>
                     <Col xs={24} sm={24} md={10} lg={10} xxl={10}>
                         <div className="img-product">
-                            <img src="images/about.jpg" alt="Image Product Load Failed" />
+                            <img src="/images/about.jpg" alt="Image Product Load Failed" />
                         </div>
                     </Col>
                     <Col xs={24} sm={24} md={14} lg={14} xxl={14}>
@@ -129,7 +129,7 @@ export default function ProductDetail() {
                     <div className={`menu-detail-item ${active === 2 ? "active" : "" }`} onClick={() => {setRenderComponent(<Description description={productDetail.description} />);setActive(2)}}>Miêu tả</div>
                     <div className={`menu-detail-item ${active === 3 ? "active" : "" }`} onClick={() => {setRenderComponent(<Vote />); setActive(3)}}>Đánh giá</div>
                 </div>
-                <Row>
+                <Row className="more-detail-container">
                     <Col xs={24} sm={24} md={24} lg={24}></Col>
                     {renderComponent}
                     {/* <Routes>

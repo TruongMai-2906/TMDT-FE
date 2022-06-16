@@ -54,7 +54,7 @@ export default function Product() {
                             {console.log('size list product', listProduct)}
                             {listProduct?.map((item, index) => {
                                 return (
-                                    <Col key={index} xs={12} m={12} md={8} lg={8} xxl={8}>
+                                    <Col key={index} xs={12} m={12} md={8} lg={8} xxl={8} className="product-container">
                                         <ProductItem id={item.id} img={item.image} name={item.name} />
                                     </Col>
                                 );
