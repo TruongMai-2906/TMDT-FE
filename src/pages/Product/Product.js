@@ -24,7 +24,7 @@ export default function Product() {
 
     useEffect(() => {
         const getListProduct = async () => {
-            const url = `/product/getListProduct?type=mu&pageIndex=1`;
+            const url = `/product/getListProduct?type=mu&pageIndex=${pageIndex.page}`;
             console.log('url là', url);
             const getProduct = await methodGet(url).catch((e) => {
                 console.log('Lỗi get product');
