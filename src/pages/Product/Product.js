@@ -7,7 +7,7 @@ import Paging from '~/components/Paging/Paging';
 import { methodGet } from '~/Utils/Request';
 export default function Product() {
     const [pageIndex, setPageIndex] = useState({
-        page: 2,
+        page: 1,
         sizetotalPage: 80,
         currentPage: 1,
     });
@@ -45,16 +45,15 @@ export default function Product() {
             <Introduce title="Trang chủ" body={'Trang chủ / Danh sách sản phẩm'} />
             <div className="container">
                 <Row>
-                    <Col xs={8} sm={8} md={8} lg={8} xxl={8}>
+                    <Col xs={24} sm={8} md={8} lg={8} xxl={8}>
                         <SlideBar />
                     </Col>
 
-                    <Col xs={16} m={16} md={16} lg={16} xxl={16}>
-                        <Row gutter={20}>
-                            {console.log('size list product', listProduct)}
+                    <Col xs={24} m={16} md={16} lg={16} xxl={16}>
+                        <Row className="product-list">
                             {listProduct?.map((item, index) => {
                                 return (
-                                    <Col key={index} xs={12} m={12} md={8} lg={8} xxl={8} className="product-container">
+                                    <Col key={index} xs={11} m={12} md={7} lg={7} xxl={7} className="product-container">
                                         <ProductItem id={item.id} img={item.image} name={item.name} />
                                     </Col>
                                 );
