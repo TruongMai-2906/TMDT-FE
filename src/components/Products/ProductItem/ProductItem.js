@@ -15,7 +15,7 @@ export default function ProductItem({ score, id, img, name }) {
     return (
         <div className="swiper-item">
             <div className="swiper-item-img">
-                <img src={img.replace('/assest', '')} alt='"Ảnh sản phẩm loading....' />
+                <img src={img} alt='"Ảnh sản phẩm loading....' />
                 <div className="swiper-item-other">
                     <div className="swiper-item-other-add">
                         <Button danger icon={<FontAwesomeIcon icon={faAdd} />}>

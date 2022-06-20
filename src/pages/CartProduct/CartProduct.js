@@ -44,6 +44,7 @@ export default function CartProduct() {
                                                     type="number"
                                                     value={quantity}
                                                     onChange={(e) => {
+                                                        console.log("zô input number ",e);
                                                         setQuantity(e.target.value);
                                                     }}
                                                 />
