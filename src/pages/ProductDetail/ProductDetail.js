@@ -22,18 +22,35 @@ import Description from '~/components/ProductDetail/Description';
 import SwiperCustom from '~/components/SwiperCustom.js/SwiperCustom';
 import Avatar from '~/components/Avatar/Avatar';
 import Footer from '~/components/Footer/Footer';
-import { methodGet } from '~/Utils/Request';
+import { methodGet, methodPost } from '~/Utils/Request';
+import { NotifyError, NotifySuccess } from '~/Utils/Notice';
 export default function ProductDetail() {
     const params = useParams();
     const [productDetail, SetProductDetail] = useState({});
     console.log('location là ', params);
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
         console.log(values);
+        const dataPost = {
+            productid: 1,
+            quantity: 1,
+        };
+        const rs = await methodPost('/cart/add', dataPost).catch((e) => {
+            NotifyError(e);
+        });
+        console.log('data add product trả về', rs);
+        if (rs?.data) {
+            NotifySuccess('Thêm vào giỏ hàng thành công');
+        } else {
+            const mesage = rs?.data?.mesage;
+            NotifyError('Thêm vào giỏ hàng thất bại =>>' + mesage);
+        }
     };
     const initialValue = {
-        amount: '1',
+        amount: params?.id,
         mausac: productDetail?.color,
     };
+
+    const handleAddCart = async () => {};
     useEffect(() => {
         const getProductDetail = async () => {
             const { id } = params;
@@ -52,7 +69,6 @@ export default function ProductDetail() {
     return (
         <>
             <Introduce title="Chi tiết sản phẩm" body="Trang chủ / Chi tiết sản phẩm" />
-            {/* <Mgtop/> */}
             <div className="container">
                 <Row gutter={5}>
                     <Col xs={24} sm={24} md={10} lg={10} xxl={10}>
@@ -74,10 +90,6 @@ export default function ProductDetail() {
                                         <FontAwesomeIcon icon={faStar} />
                                         <FontAwesomeIcon icon={faStar} />
                                     </div>
-
-                                    {/* <h3 className="description">
-                                        Quần khaki dáng regular cạp chung, có túi chéo 2 bên
-                                    </h3> */}
                                     <div className="stt">
                                         <p className="">
                                             Tình trạng : <span className="status">Còn hàng</span>
@@ -85,13 +97,8 @@ export default function ProductDetail() {
                                     </div>
                                     {/* <Form onFinish={onFinish} initialValues={initialValue}> */}
                                     <Space size="large">
-                                        <Form.Item
-                                            label="Số lượng"
-                                            name="amount"
-                                            rules={[{ type: 'number', max: 10, min: 1, required: true }]}
-                                        >
-                                            <InputNumber defaultValue={1} />
-                                            <Form.Item name="mausac" label="Màu sắc" rules={[{ required: true }]}>
+                                        <Form.Item name="amount" rules={[{}]}>
+                                            <Form.Item name="mausac" label="Màu sắc">
                                                 <Radio.Group defaultValue={productDetail?.color}>
                                                     <Radio checked={true} value={productDetail?.color}>
                                                         {productDetail?.color}
@@ -125,9 +132,33 @@ export default function ProductDetail() {
                     {/* <Link to="/product_detail/themthongtin">Thêm thông tin</Link>
                     <Link to="/product_detail/mieuta">Miêu tả</Link>
                     <Link to="/product_detail/danhgia">Đánh giá</Link> */}
-                    <div className={`menu-detail-item ${active === 1 ? "active" : "" }`} onClick={() => {setRenderComponent(<MoreInformation />); setActive(1)}}>Thêm thông tin</div>
-                    <div className={`menu-detail-item ${active === 2 ? "active" : "" }`} onClick={() => {setRenderComponent(<Description description={productDetail.description} />);setActive(2)}}>Miêu tả</div>
-                    <div className={`menu-detail-item ${active === 3 ? "active" : "" }`} onClick={() => {setRenderComponent(<Vote />); setActive(3)}}>Đánh giá</div>
+                    <div
+                        className={`menu-detail-item ${active === 1 ? 'active' : ''}`}
+                        onClick={() => {
+                            setRenderComponent(<MoreInformation />);
+                            setActive(1);
+                        }}
+                    >
+                        Thêm thông tin
+                    </div>
+                    <div
+                        className={`menu-detail-item ${active === 2 ? 'active' : ''}`}
+                        onClick={() => {
+                            setRenderComponent(<Description description={productDetail.description} />);
+                            setActive(2);
+                        }}
+                    >
+                        Miêu tả
+                    </div>
+                    <div
+                        className={`menu-detail-item ${active === 3 ? 'active' : ''}`}
+                        onClick={() => {
+                            setRenderComponent(<Vote />);
+                            setActive(3);
+                        }}
+                    >
+                        Đánh giá
+                    </div>
                 </div>
                 <Row className="more-detail-container">
                     <Col xs={24} sm={24} md={24} lg={24}></Col>

@@ -1,10 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Introduce from '~/components/Banner/Introduce';
 import { Link } from 'react-router-dom';
 import './CartProduct.scss';
+import { NotifyError, NotifySuccess } from '~/Utils/Notice';
+import { methodGet, methodPost } from '~/Utils/Request';
+import { faRss } from '@fortawesome/free-solid-svg-icons';
+import InternalPreviewGroup from 'antd/lib/image/PreviewGroup';
 export default function CartProduct() {
     const [quantity, setQuantity] = useState(1);
+    const [listcardItem, SetListCardItem] = useState({});
 
+    const handleAdd = async (e, id) => {
+        console.log('id', e, id);
+        const dataPost = {
+            productid: id,
+            quantity: Number(e),
+        };
+        const rs = await methodPost('cart/update', dataPost).catch((e) => {
+            console.log('lỗi call api add cart');
+        });
+        console.log();
+        if (rs?.data) {
+            NotifySuccess('Thêm số lượng sản phẩm thành công');
+        } else {
+            NotifyError('Thêm số lượng sản phẩm thất bại');
+        }
+    };
+    const handleRemove = async (id) => {
+        const dataPost = {
+            productid: id,
+        };
+        const rs = await methodPost('cart/update?action=remove', dataPost).catch((e) => {
+            console.log('lỗi call api remove cart');
+        });
+        if (rs?.data) {
+            NotifySuccess('Xóa sản phẩm thành công ');
+            const temp = listcardItem.cartItemList.map((item, index) => {
+                if (item?.id == id) {
+                } else {
+                    return item;
+                }
+            });
+            console.log('temp', temp);
+            SetListCardItem({
+                ...listcardItem,
+                cartItemList: [[...temp]],
+            });
+        } else {
+            NotifyError('Xóa thất bại');
+        }
+    };
+    useEffect(() => {
+        const getData = async () => {
+            const rs = await methodGet('/cart/getListCardItem').catch((e) => {
+                NotifyError('Load Giỏ hàng thất bại');
+            });
+            if (rs?.data) {
+                console.log('data cart item ', rs?.data);
+                SetListCardItem(rs.data);
+            } else {
+                NotifyError('Kiểm tra lại =>>Fail');
+            }
+        };
+        getData();
+    }, []);
     return (
         <div>
             <Introduce title="Trang chủ" body={'Trang chủ / Giỏ hàng của tôi'} />
@@ -12,6 +71,11 @@ export default function CartProduct() {
                 <div className="row">
                     <div className="col-md-12 col-sm-12">
                         {/* <!-- Form Start --> */}
+                        {listcardItem ? (
+                            <h1>Đây là giỏ hàng của bạn, Có {listcardItem.length} sản phẩm</h1>
+                        ) : (
+                            <h1>Bạn chưa thêm bất kì sản phẩm nào vào giỏ hàng, hãy tiếp tục mua sắm nhé</h1>
+                        )}
                         <form action="#">
                             {/* <!-- Table Content Start --> */}
                             <div className="table-content table-responsive mb-45">
@@ -27,63 +91,54 @@ export default function CartProduct() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td className="product-thumbnail">
-                                                <a href='"/#"'>
-                                                    <img src="images/about.jpg" alt="cart-image" />
-                                                </a>
-                                            </td>
-                                            <td className="product-name">
-                                                <a href='"/#"'>dictum idrisus</a>
-                                            </td>
-                                            <td className="product-price">
-                                                <span className="amount">£165.00</span>
-                                            </td>
-                                            <td className="product-quantity">
-                                                <input
-                                                    type="number"
-                                                    value={quantity}
-                                                    onChange={(e) => {
-                                                        console.log("zô input number ",e);
-                                                        setQuantity(e.target.value);
-                                                    }}
-                                                />
-                                            </td>
-                                            <td className="product-subtotal">£165.00</td>
-                                            <td className="product-remove">
-                                                <a href='"/#"'>
-                                                    <i className="fa fa-times" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="product-thumbnail">
-                                                <a href="#">
-                                                    <img src="images/about.jpg" alt="cart-image" />
-                                                </a>
-                                            </td>
-                                            <td className="product-name">
-                                                <a href='"/#"'>Carte Postal Clock</a>
-                                            </td>
-                                            <td className="product-price">
-                                                <span className="amount">£50.00</span>
-                                            </td>
-                                            <td className="product-quantity">
-                                                <input
-                                                    type="number"
-                                                    value={quantity}
-                                                    onChange={(e) => {
-                                                        setQuantity(e.target.value);
-                                                    }}
-                                                />
-                                            </td>
-                                            <td className="product-subtotal">£50.00</td>
-                                            <td className="product-remove">
-                                                <a href='"/#"'>
-                                                    <i className="fa fa-times" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                        {listcardItem &&
+                                            listcardItem?.cartItemList?.map((item, index) => {
+                                                const id = item?.product?.id;
+                                                // console.log(id);
+                                                return (
+                                                    <tr key={index}>
+                                                        <td className="product-thumbnail">
+                                                            <Link to={`/product-detail/${item?.product?.id}`}>
+                                                                <img src={item?.product?.image} alt="cart-image" />
+                                                            </Link>
+                                                        </td>
+                                                        <td className="product-name">
+                                                            <Link to={`/product-detail/${item?.product?.id}`}>
+                                                                {item?.product?.name}
+                                                            </Link>
+                                                        </td>
+                                                        <td className="product-price">
+                                                            <span className="amount">{item?.product?.price} VND</span>
+                                                        </td>
+                                                        <td className="product-quantity">
+                                                            <input
+                                                                type="number"
+                                                                value={quantity}
+                                                                onChange={(e) => {
+                                                                    if (e.target.value < 1) {
+                                                                        NotifyError('Vui lòng chọn số lượng hợp lệ');
+                                                                        setQuantity(1);
+                                                                    } else {
+                                                                        setQuantity(e.target.value);
+                                                                    }
+                                                                    handleAdd(e.target.value, id);
+                                                                }}
+                                                            />
+                                                        </td>
+                                                        <td className="product-subtotal">{item?.totalPrice} Vnd</td>
+                                                        <td className="product-remove">
+                                                            <a
+                                                                onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    handleRemove(id);
+                                                                }}
+                                                            >
+                                                                <i className="fa fa-times" aria-hidden="true"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })}
                                     </tbody>
                                 </table>
                             </div>
@@ -107,17 +162,9 @@ export default function CartProduct() {
                                                 <tr className="cart-subtotal">
                                                     <th>Tổng tiền</th>
                                                     <td>
-                                                        <span className="amount">$215.00</span>
+                                                        <span className="amount">{listcardItem?.totalCart} Vnd</span>
                                                     </td>
                                                 </tr>
-                                                {/* <tr className="order-total">
-                                                    <th>Total</th>
-                                                    <td>
-                                                        <strong>
-                                                            <span className="amount">$215.00</span>
-                                                        </strong>
-                                                    </td>
-                                                </tr> */}
                                             </tbody>
                                         </table>
                                         <div className="wc-proceed-to-checkout">

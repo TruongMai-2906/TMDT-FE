@@ -1,7 +1,7 @@
 import { message } from 'antd';
 
 export const NotifySuccess = (msg) => {
-    console.log('notify,', msg);
+    console.log('msg notify success:', msg);
     message.success({
         content: msg,
         duration: 3,
@@ -14,6 +14,7 @@ export const NotifySuccess = (msg) => {
     });
 };
 export const NotifyError = (msg) => {
+    console.log('msg notify fail:', msg);
     message.error({
         content: msg,
         duration: 3,
