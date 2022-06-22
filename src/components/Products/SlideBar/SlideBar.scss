@@ -1,0 +1,164 @@
+.sidebar-title {
+    color: #2c2c2c;
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+.e-title {
+    background: #e62e04 none repeat scroll 0 0;
+    color: #ffffff;
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 25px;
+    margin-bottom: 0;
+    padding: 15px;
+    text-transform: uppercase;
+}
+.category-menu.sidebar-menu .has-sub.open a span.holder::after,
+.category-menu.sidebar-menu li.has-sub.open > a::after{
+    content: "\f209";
+}
+
+.category-menu.sidebar-menu .has-sub a span.holder::after,
+.category-menu.sidebar-menu li.has-sub > a::after {
+    content: "\f217";
+    font-family: "Ionicons";
+    font-size: 14px;
+    position: absolute;
+    right: 20px;
+}
+
+
+/*img/vertical-menu/icon-expand.png*/
+.category-menu.v-cat-menu ul li.has-sub > a::after {
+    left: 30px;
+    top: 6px;
+}
+
+.sidebar-menu ul li {
+    position: relative;
+}
+
+.sidebar-menu li a,
+.color-option li a,
+.single-sidebar li a {
+    color: #2c2c2c;
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    padding: 10px 0;
+    text-transform: capitalize;
+    cursor: pointer;
+}
+
+.sidebar-menu li:hover > a,
+.sidebar-menu li.has-sub:hover > a,
+.sidebar-menu li.has-sub.open > a {
+    color: #e62e04;
+}
+
+.sidebar-menu .category-sub li a {
+    padding-left: 10px;
+}
+
+/*---------------------------------
+   Fileter by search css start
+-----------------------------------*/
+.ui-slider.ui-corner-all.ui-slider-horizontal.ui-widget.ui-widget-content {
+    margin-top: 15px;
+}
+
+
+
+.ui-slider-handle.ui-state-default.ui-corner-all {
+  background: #fff none repeat scroll 0 0;
+  border: 5px solid #f9af51;
+  border-radius: 100%;
+  display: inline-block;
+  height: 21px;
+  top: -9px;
+  width: 21px;
+}
+
+
+
+.ui-slider-range.ui-widget-header.ui-corner-all {
+    background: transparent;
+}
+
+.ui-widget.ui-widget-content {
+    background: #fff none repeat scroll 0 0;
+    border: 2px solid #f9af51;
+    height: 7px;
+    border-radius: 5px;
+}
+.ui-slider-horizontal .ui-slider-handle {
+    margin-left: 0;
+}
+
+.ui-slider-handle.ui-corner-all.ui-state-default.ui-state-focus {
+    outline: medium none;
+}
+.amount-range {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  color: #2c2c2c;
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 10px;
+  padding: 5px 0;
+  text-align: center;
+}
+
+.amount-range,
+.price-button {
+    width: 100%;
+    word-spacing: 15px;
+}
+
+.flter-option.mb-80 {
+    padding-right: 15px;
+}
+
+/*---------------------------------
+    categorie,price & size css start
+-----------------------------------*/
+.sidbar-style li {
+    transition: all 300ms ease-in 0s;
+    -webkit-transition: all 300ms ease-in 0s;
+    -ms-transition: all 300ms ease-in 0s;
+    -moz-transition: all 300ms ease-in 0s;
+}
+.sidbar-style > ul > li > a{
+  padding:0;
+}
+.sidbar-style .category-sub li a{
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.sidbar-style ul li {
+  padding-top: 10px;
+}
+.sidbar-style > ul > li:first-child{
+  padding-top: 0;
+}
+.sidbar-style .form-check label {
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.sidebar li.form-check {
+    margin-bottom: 12px;
+}
+
+.sidebar .form-check {
+    padding-left: 0;
+}
+ul.tag-list > li > a {
+  padding: 7px 14px;
+}
