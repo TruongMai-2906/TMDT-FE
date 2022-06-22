@@ -16,7 +16,11 @@ export default function Header() {
         SetCurrentUser(null);
     };
     useEffect(() => {
-        keywork && navigate(`/search/${keywork}`) 
+        if (!keywork) {
+            navigate('/');
+        } else {
+            keywork && navigate(`/search/${keywork}`);
+        }
     }, [keywork]);
 
     useEffect(() => {

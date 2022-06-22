@@ -35,17 +35,14 @@ export default function CartProduct() {
         });
         if (rs?.data) {
             NotifySuccess('Xóa sản phẩm thành công ');
-            const temp = listcardItem.cartItemList.map((item, index) => {
-                if (item?.id == id) {
-                } else {
-                    return item;
-                }
-            });
-            console.log('temp', temp);
-            SetListCardItem({
-                ...listcardItem,
-                cartItemList: [[...temp]],
-            });
+            // const temp = listcardItem.cartItemList.map((item, index) => {
+            //     if (item?.id == id) {
+            //     } else {
+            //         return item;
+            //     }
+            // });
+            // console.log('temp', temp);
+            SetListCardItem(rs.data);
         } else {
             NotifyError('Xóa thất bại');
         }
@@ -113,7 +110,7 @@ export default function CartProduct() {
                                                         <td className="product-quantity">
                                                             <input
                                                                 type="number"
-                                                                value={quantity}
+                                                                value={item?.quantity}
                                                                 onChange={(e) => {
                                                                     if (e.target.value < 1) {
                                                                         NotifyError('Vui lòng chọn số lượng hợp lệ');
