@@ -2,11 +2,16 @@ package com.example.cdwebbe.repository;
 
 import com.example.cdwebbe.model.Cart;
 import com.example.cdwebbe.model.CartItem;
+import com.example.cdwebbe.model.Product;
+
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem,Long> {
@@ -22,5 +27,8 @@ public interface CartItemRepository extends JpaRepository<CartItem,Long> {
 
 
     void  deleteCartItemByProductIdAndCartId(Long productid,Long cartid);
+    @Transactional
+    void deleteAllByCart(Cart cart);
 
+    CartItem findByCartAndProduct(Cart cartEntity, Product productEntity);
 }
