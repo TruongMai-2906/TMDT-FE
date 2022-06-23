@@ -1,8 +1,14 @@
 package com.example.cdwebbe.controller;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.cdwebbe.DTO.OrderDTO;
+import com.example.cdwebbe.config.ModelMapperConfig;
 import com.example.cdwebbe.model.Cart;
 import com.example.cdwebbe.model.CartItem;
 import com.example.cdwebbe.model.Order;
@@ -28,6 +36,8 @@ import com.example.cdwebbe.repository.ProductRepository;
 import com.example.cdwebbe.repository.UserRepository;
 import com.example.cdwebbe.security.CurrentUser;
 import com.example.cdwebbe.security.UserPrincipal;
+
+import com.google.common.reflect.TypeToken;
 //import com.example.cdwebbe.service.OrderService;
 
 @RestController
@@ -47,6 +57,8 @@ public class OrderController {
 	OrderRepository orderRepository;
 	@Autowired
 	OrderDetailRepository orderDetailRepository;
+	@Autowired
+	ModelMapper mapper;
 
 
 
@@ -81,6 +93,8 @@ public class OrderController {
 		User userEntity = this.userRepository.findById(userDetails.getId()).get();
 		order.setUser(userEntity);
 		order.setDateCreate(new Date());
+		order.setAddress(changeToOrderRequest.getAddress());
+		order.setPhoneNumber(changeToOrderRequest.getPhoneNumber());
 		orderRepository.save(order);
 		for (int i = 0; i < changeToOrderRequest.getIdProducts().length; i++) {
 			Product product = productRepository.findOneById((long) changeToOrderRequest.getIdProducts()[i]);
@@ -93,7 +107,7 @@ public class OrderController {
 				CartItem cartItemEntity = handleQuantityAndTotalPriceProduct(userEntity, product);
 				orderDetail.setTotalPrice(cartItemEntity.getTotalPrice());
 				orderDetail.setQuantity(cartItemEntity.getQuantity());
-
+				orderDetail.setStatus(false);
 				orderDetailRepository.save(orderDetail);
 
 			} else {
@@ -116,6 +130,19 @@ public class OrderController {
 
 		return cartItemEntity;
 
+	}
+	@GetMapping("/listOrder")
+	public ResponseEntity<?> getListOrderByUserId(@CurrentUser UserPrincipal currentUser) {
+ 
+		 User user = userRepository.findOnedById(currentUser.getId());
+		 List<Order> orders=orderRepository.findByUserId(user.getId());
+//		 System.out.println(user);
+		 List<OrderDTO> result = new ArrayList<>();
+		 for (Order order : orders) {
+			 result.add(this.mapper.map(order,OrderDTO.class));
+		}
+		 System.out.println(result);
+		 return ResponseEntity.ok().body(result);
 	}
 
 }

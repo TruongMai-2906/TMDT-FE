@@ -33,10 +33,35 @@ public class Order {
 
 
     private  double shipfee;
+    
+    private String phoneNumber;
+    
 
 
-    @JsonIgnore
-    @ManyToOne
+    public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public Order(Long id, String address, Date dateDelivery, Date dateCreate, double totalPriceOrder, double shipfee,
+			String phoneNumber, User user, List<OrderDetail> orderDetailList) {
+		super();
+		this.id = id;
+		this.address = address;
+		this.dateDelivery = dateDelivery;
+		this.dateCreate = dateCreate;
+		this.totalPriceOrder = totalPriceOrder;
+		this.shipfee = shipfee;
+		this.phoneNumber = phoneNumber;
+		this.user = user;
+		this.orderDetailList = orderDetailList;
+	}
+
+	@JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userID", referencedColumnName = "id")
     private User user;
 
@@ -110,6 +135,13 @@ public class Order {
 
 	public void setOrderDetailList(List<OrderDetail> orderDetailList) {
 		this.orderDetailList = orderDetailList;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", address=" + address + ", dateDelivery=" + dateDelivery + ", dateCreate="
+				+ dateCreate + ", totalPriceOrder=" + totalPriceOrder + ", shipfee=" + shipfee + ", phoneNumber="
+				+ phoneNumber + ", user=" + user + ", orderDetailList=" + orderDetailList + "]";
 	}
     
 

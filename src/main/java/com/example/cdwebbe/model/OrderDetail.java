@@ -16,7 +16,7 @@ public class OrderDetail {
     private int quantity;
 
     private double totalPrice;
-
+    private boolean status;
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "productId", referencedColumnName = "id")
@@ -34,6 +34,17 @@ public class OrderDetail {
 		this.id = id;
 		this.quantity = quantity;
 		this.totalPrice = totalPrice;
+		this.product = product;
+		this.order = order;
+	}
+
+
+	public OrderDetail(Long id, int quantity, double totalPrice, boolean status, Product product, Order order) {
+		super();
+		this.id = id;
+		this.quantity = quantity;
+		this.totalPrice = totalPrice;
+		this.status = status;
 		this.product = product;
 		this.order = order;
 	}
@@ -92,5 +103,16 @@ public class OrderDetail {
 	public OrderDetail() {
 		super();
 	}
+
+
+	public boolean isStatus() {
+		return status;
+	}
+
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
     
 }
