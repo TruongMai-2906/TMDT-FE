@@ -45,3 +45,31 @@
         display: block;
     }
 }
+
+.header__navigation-right {
+    @media screen and (min-width: 1280px) {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+.header-mobile__logo {
+    display: block;
+    height: 60px;
+    width: auto;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    img {
+        height: 100%;
+        width: auto;
+    }
+
+    &--hidden {
+        opacity: 0;
+    }
+    &--disable {
+        display: none;
+    }
+}

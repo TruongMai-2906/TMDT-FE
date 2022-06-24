@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useCheckMobileScreen } from '~/Utils/CustomHook';
 import { methodGet } from '~/Utils/Request';
 import './Header.scss';
 export default function Header() {
@@ -37,6 +38,8 @@ export default function Header() {
         }
     }, [checkuser]);
 
+    const mobile = useCheckMobileScreen(768);
+
     return (
         // <header>
 
@@ -47,14 +50,14 @@ export default function Header() {
                         <div className="full">
                             <div className="center-desk">
                                 <div className="logo">
-                                    <Link to="/">
+                                    <Link to="/" className={mobile ? "header-mobile__logo--hidden" : ""}>
                                         <img src="images/logo.png" alt="#" />
                                     </Link>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                    <div className="col-xl-9 col-lg-9 col-md-9 col-sm-9 header__navigation-right">
                         <nav className="navigation navbar navbar-expand-md navbar-dark ">
                             <button
                                 className="navbar-toggler"
@@ -140,6 +143,9 @@ export default function Header() {
                         </nav>
                     </div>
                 </div>
+                <Link to="/" className={mobile ? "header-mobile__logo" : "header-mobile__logo--disable"}>
+                    <img src="images/logo.png" alt="#" />
+                </Link>
             </div>
         </div>
         // </header>
