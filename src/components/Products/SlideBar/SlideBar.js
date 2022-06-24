@@ -1,11 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SlideBar.scss';
 export default function SlideBar() {
+
+    const [category, setCategory] = useState([
+        {
+            key: "ao",
+            value: "Áo",
+        },
+        {
+            key: "quan",
+            value: "Quần",
+        },
+        {
+            key: "mu",
+            value: "Mũ",
+        },
+        {
+            key: "giay",
+            value: "Giày",
+        },
+        {
+            key: "khac",
+            value: "Khác",
+        },
+    ])
+
+    const onSelectCategogy = (key) => {
+        //todo: key per cat for agrument to call api
+    }
+
     return (
         <div className="slidebar">
             <h2 className="slidebar-title">Tổng quan</h2>
             <div id="shop-cate-toggle" className="category-menu sidebar-menu sidbar-style">
                 <ul>
+                    <li className="has-sub">
+                        <a href="https://www.facebook.com/">Thể loại</a>
+                        <ul className="category-sub">
+                            {category && category.map((cat, index) => 
+                                <li>
+                                    <div key={`cat-${index}`} href="https://www.facebook.com/" onClick={onSelectCategogy(cat.key)}>{cat.value}</div>
+                                </li>
+                            )}
+                        </ul>
+                        {/* <!-- category submenu end--> */}
+                    </li>
                     <li className="has-sub">
                         <a href="https://www.facebook.com/">Dành cho Nam</a>
                         <ul className="category-sub">
