@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Introduce from '~/components/Banner/Introduce';
+import { NotifyError, NotifySuccess } from '~/Utils/Notice';
+import { methodGet, methodPost } from '~/Utils/Request';
 import './Order.scss';
 export default function Order() {
     const [country, setCountry] = useState('VietNam');
@@ -8,9 +10,32 @@ export default function Order() {
     const [diachi, setDiaChi] = useState('');
     const [city, setCity] = useState('');
     const [phone, setPhone] = useState('');
-    const handleSubmit = (e) => {
+
+    const [listProductOrder, SetListProductOrder] = useState({});
+    useEffect(() => {
+        const getListProductOder = async () => {
+            const result = await methodGet('/cart/getListCardItem');
+            SetListProductOrder(result.data);
+        };
+        getListProductOder();
+    }, []);
+    const handleSubmit = async (e) => {
         console.log(e);
-        e.preventDefault();
+        const data = {
+            country: country,
+            name: ho + ' ' + ten,
+            address: diachi,
+            city: city,
+            phone: phone,
+        };
+        const rs = await methodPost('/getListCardItem', data).catch((e) => {
+            // NotifyError('Đặt hàng thất bại , vui lòng thử lại');
+        });
+        if (rs?.data) {
+            NotifySuccess('Đặt hàng thành công =>>Chuyển hướng đến trang đơn hàng của tôi');
+        } else {
+            NotifyError('Đặt hàng thất bại');
+        }
     };
     return (
         <div>
@@ -136,35 +161,35 @@ export default function Order() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr className="cart_item">
-                                                <td className="product-name">
-                                                    Vestibulum suscipit <span className="product-quantity"> × 1</span>
-                                                </td>
-                                                <td className="product-total">
-                                                    <span className="amount">£165.00</span>
-                                                </td>
-                                            </tr>
-                                            <tr className="cart_item">
-                                                <td className="product-name">
-                                                    Vestibulum dictum magna{' '}
-                                                    <span className="product-quantity"> × 1</span>
-                                                </td>
-                                                <td className="product-total">
-                                                    <span className="amount">£50.00</span>
-                                                </td>
-                                            </tr>
+                                            {listProductOrder &&
+                                                listProductOrder?.cartItemList?.map((item, index) => {
+                                                    return (
+                                                        <tr className="cart_item" key={index}>
+                                                            <td className="product-name">
+                                                                {item?.product?.name}
+                                                                <span className="product-quantity">
+                                                                    {' '}
+                                                                    × {item?.quantity}
+                                                                </span>
+                                                            </td>
+                                                            <td className="product-total">
+                                                                <span className="amount">{item?.totalPrice} vnđ</span>
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                })}
                                         </tbody>
                                         <tfoot>
                                             <tr className="cart-subtotal">
-                                                <th>Giảm giá</th>
+                                                <th>Phí ship</th>
                                                 <td>
-                                                    <span className="amount">£215.00</span>
+                                                    <span className="amount">30.000 </span>
                                                 </td>
                                             </tr>
                                             <tr className="order-total">
                                                 <th>Giá cuối</th>
                                                 <td>
-                                                    <span className=" total amount">£215.00</span>
+                                                    <span className=" total amount">{listProductOrder?.totalCart}</span>
                                                 </td>
                                             </tr>
                                         </tfoot>
