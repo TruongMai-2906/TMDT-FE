@@ -21,9 +21,9 @@ export default function CartProduct() {
         });
         console.log();
         if (rs?.data) {
-            NotifySuccess('Thêm số lượng sản phẩm thành công');
+            NotifySuccess('Cập nhật số lượng sản phẩm thành công');
         } else {
-            NotifyError('Thêm số lượng sản phẩm thất bại');
+            NotifyError('Cập nhật số lượng sản phẩm thất bại');
         }
     };
     const handleRemove = async (id) => {
@@ -35,14 +35,6 @@ export default function CartProduct() {
         });
         if (rs?.data) {
             NotifySuccess('Xóa sản phẩm thành công ');
-            // const temp = listcardItem.cartItemList.map((item, index) => {
-            //     if (item?.id == id) {
-            //     } else {
-            //         return item;
-            //     }
-            // });
-            // console.log('temp', temp);
-            SetListCardItem(rs.data);
         } else {
             NotifyError('Xóa thất bại');
         }
@@ -110,15 +102,16 @@ export default function CartProduct() {
                                                         <td className="product-quantity">
                                                             <input
                                                                 type="number"
-                                                                value={item?.quantity}
+                                                                // value={item?.quantity}
+                                                                defaultValue={item?.quantity}
                                                                 onChange={(e) => {
-                                                                    if (e.target.value < 1) {
+                                                                    var quantity = e.target.value;
+                                                                    if (quantity < 1) {
+                                                                        quantity = 1;
                                                                         NotifyError('Vui lòng chọn số lượng hợp lệ');
-                                                                        setQuantity(1);
-                                                                    } else {
-                                                                        setQuantity(e.target.value);
+                                                                        // setQuantity(1);
                                                                     }
-                                                                    handleAdd(e.target.value, id);
+                                                                    handleAdd(quantity, id);
                                                                 }}
                                                             />
                                                         </td>

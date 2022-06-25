@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
 import './SlideBar.scss';
 export default function SlideBar() {
-
     const [category, setCategory] = useState([
         {
-            key: "ao",
-            value: "Áo",
+            key: 'ao',
+            value: 'Áo',
         },
         {
-            key: "quan",
-            value: "Quần",
+            key: 'quan',
+            value: 'Quần',
         },
         {
-            key: "mu",
-            value: "Mũ",
+            key: 'mu',
+            value: 'Mũ',
         },
         {
-            key: "giay",
-            value: "Giày",
+            key: 'giay',
+            value: 'Giày',
         },
         {
-            key: "khac",
-            value: "Khác",
+            key: 'khac',
+            value: 'Khác',
         },
-    ])
+    ]);
 
     const onSelectCategogy = (key) => {
-        //todo: key per cat for agrument to call api
-    }
+        //todo: key per cat for agrument to call ap
+        console.log(key);
+    };
 
     return (
         <div className="slidebar">
@@ -37,15 +37,22 @@ export default function SlideBar() {
                     <li className="has-sub">
                         <a href="https://www.facebook.com/">Thể loại</a>
                         <ul className="category-sub">
-                            {category && category.map((cat, index) => 
-                                <li>
-                                    <div key={`cat-${index}`} href="https://www.facebook.com/" onClick={onSelectCategogy(cat.key)}>{cat.value}</div>
-                                </li>
-                            )}
+                            {category &&
+                                category.map((cat, index) => (
+                                    <li>
+                                        <div
+                                            key={`cat-${index}`}
+                                            href="https://www.facebook.com/"
+                                            onClick={onSelectCategogy(cat.key)}
+                                        >
+                                            {cat.value}
+                                        </div>
+                                    </li>
+                                ))}
                         </ul>
                         {/* <!-- category submenu end--> */}
                     </li>
-                    <li className="has-sub">
+                    {/* <li className="has-sub">
                         <a href="https://www.facebook.com/">Dành cho Nam</a>
                         <ul className="category-sub">
                             <li>
@@ -58,7 +65,6 @@ export default function SlideBar() {
                                 <a href="https://www.facebook.com/">Combo(Ngẫu nhiên)</a>
                             </li>
                         </ul>
-                        {/* <!-- category submenu end--> */}
                     </li>
                     <li className="has-sub">
                         <a href="https://www.facebook.com/">Dành cho nữ</a>
@@ -66,7 +72,7 @@ export default function SlideBar() {
                             <li>
                                 <a href="https://www.facebook.com/">Áo( Ni,Khoác,Len )</a>
                             </li>
-                              <li>
+                            <li>
                                 <a href="https://www.facebook.com/">Quần</a>
                             </li>
                             <li>
@@ -76,7 +82,6 @@ export default function SlideBar() {
                                 <a href="https://www.facebook.com/">Combo ngẫu nhiên</a>
                             </li>
                         </ul>
-                        {/* <!-- category submenu end--> */}
                     </li>
                     <li className="has-sub">
                         <a href="https://www.facebook.com/">Dịch Vụ</a>
@@ -94,7 +99,6 @@ export default function SlideBar() {
                                 <a href="https://www.facebook.com/">:D</a>
                             </li>
                         </ul>
-                        {/* <!-- category submenu end--> */}
                     </li>
                     <li className="has-sub">
                         <a href="https://www.facebook.com/">Tin Tức Khuyến Mãi</a>
@@ -112,8 +116,7 @@ export default function SlideBar() {
                                 <a href="https://www.facebook.com/">:D</a>
                             </li>
                         </ul>
-                        {/* <!-- category submenu end--> */}
-                    </li>
+                    </li> */}
                 </ul>
             </div>
         </div>

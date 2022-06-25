@@ -5,6 +5,8 @@ import SlideBar from '~/components/Products/SlideBar/SlideBar';
 import ProductItem from '~/components/Products/ProductItem/ProductItem';
 import Paging from '~/components/Paging/Paging';
 import { methodGet } from '~/Utils/Request';
+import { Select } from 'antd';
+const { Option } = Select;
 export default function Product() {
     const [pageIndex, setPageIndex] = useState({
         page: 1,
@@ -21,7 +23,9 @@ export default function Product() {
     };
     console.log('page index', pageIndex);
     const [listProduct, setListProduct] = useState([]);
-
+    const onChange = (value) => {
+        console.log(`selected ${value}`);
+    };
     useEffect(() => {
         const getListProduct = async () => {
             const url = `/product/getListProduct?type=mu&pageIndex=${pageIndex.page}`;
@@ -50,6 +54,12 @@ export default function Product() {
                     </Col>
 
                     <Col xs={24} m={16} md={16} lg={16} xxl={16}>
+                        <Select placeholder="Lọc theo tiêu chí ?" onChange={onChange} style={{ marginBottom: '10px' }}>
+                            <Option value="jack">Theo giá tăng dần +</Option>
+                            <Option value="lucy">Theo giá giảm dần -</Option>
+                            <Option value="tom">Dành cho nam $</Option>
+                            <Option value="tom">Dành cho nữ *</Option>
+                        </Select>
                         <Row className="product-list">
                             {listProduct?.map((item, index) => {
                                 return (

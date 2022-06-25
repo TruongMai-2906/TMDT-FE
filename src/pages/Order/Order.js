@@ -21,16 +21,19 @@ export default function Order() {
     }, []);
     const handleSubmit = async (e) => {
         console.log(e);
+        const adress = diachi + '-' + city + '-' + country;
+        // name: ho + ' ' + ten,
         const data = {
-            country: country,
-            name: ho + ' ' + ten,
-            address: diachi,
-            city: city,
-            phone: phone,
+            idProducts: [],
+            feeTotal: 30000,
+            address: adress,
+            phoneNumber: phone,
         };
-        const rs = await methodPost('/getListCardItem', data).catch((e) => {
-            // NotifyError('Đặt hàng thất bại , vui lòng thử lại');
+        console.log(data);
+        const rs = await methodPost('/order/checkoutOrder', data).catch((e) => {
+            NotifyError('Đặt hàng thất bại , vui lòng thử lại');
         });
+        console.log({ rs });
         if (rs?.data) {
             NotifySuccess('Đặt hàng thành công =>>Chuyển hướng đến trang đơn hàng của tôi');
         } else {
