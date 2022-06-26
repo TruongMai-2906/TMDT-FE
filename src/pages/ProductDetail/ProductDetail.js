@@ -58,7 +58,7 @@ export default function ProductDetail() {
             const rs = await methodGet(`/product/detail/${id}`).catch((e) => {
                 console.log('get product detail failed');
             });
-            console.log('kq get api get product detail la', rs.data);
+            console.log('kq get api get product detail la', rs?.data);
             SetProductDetail(rs?.data);
         };
         getProductDetail();
@@ -73,7 +73,7 @@ export default function ProductDetail() {
                 <Row gutter={5}>
                     <Col xs={24} sm={24} md={10} lg={10} xxl={10}>
                         <div className="img-product">
-                            <img src="/images/about.jpg" alt="Image Product Load Failed" />
+                            <img src={productDetail?.image} alt="Image Product Load Failed" />
                         </div>
                     </Col>
                     <Col xs={24} sm={24} md={14} lg={14} xxl={14}>
@@ -144,7 +144,7 @@ export default function ProductDetail() {
                     <div
                         className={`menu-detail-item ${active === 2 ? 'active' : ''}`}
                         onClick={() => {
-                            setRenderComponent(<Description description={productDetail.description} />);
+                            setRenderComponent(<Description description={productDetail?.description} />);
                             setActive(2);
                         }}
                     >
@@ -172,7 +172,7 @@ export default function ProductDetail() {
                 <Row>
                     <Col>
                         <div className="relative">
-                            <h1 className="relative-title">Sản phẩm liên quan</h1>
+                            <h1 className="relative-title">Sản phẩm ngẫu nhiên khác</h1>
 
                             <SwiperCustom />
                         </div>
@@ -181,22 +181,22 @@ export default function ProductDetail() {
                 <Mgtop />
                 <Row gutter={10}>
                     <Col xs={8} sm={8} md={8} lg={4} xxl={4}>
-                        <Avatar src="./images/about.jpg" />
+                        <Avatar src="/images/logo.png" />
                     </Col>
                     <Col xs={8} sm={8} md={8} lg={4} xxl={4}>
-                        <Avatar src="./images/about.jpg" />
+                        <Avatar src="/images/logo.png" />
                     </Col>
                     <Col xs={8} sm={8} md={8} lg={4} xxl={4}>
-                        <Avatar src="./images/about.jpg" />
+                        <Avatar src="/images/logo.png" />
                     </Col>
                     <Col xs={8} sm={8} md={8} lg={4} xxl={4}>
-                        <Avatar src="./images/about.jpg" />
+                        <Avatar src="/images/logo.png" />
                     </Col>
                     <Col xs={8} sm={8} md={8} lg={4} xxl={4}>
-                        <Avatar src="./images/about.jpg" />
+                        <Avatar src="/images/logo.png" />
                     </Col>
                     <Col xs={8} sm={8} md={8} lg={4} xxl={4}>
-                        <Avatar src="./images/about.jpg" />
+                        <Avatar src="/images/logo.png" />
                     </Col>
                 </Row>
             </div>

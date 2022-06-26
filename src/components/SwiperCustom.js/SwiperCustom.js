@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -16,7 +16,19 @@ import {
     faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import ProductItem from '../Products/ProductItem/ProductItem';
+import { methodGet } from '~/Utils/Request';
 export default function SwiperCustom({ children }) {
+    const [listproduct, setListProduct] = useState();
+    useEffect(() => {
+        const number = Math.floor(Math.random() * 3) + 1;
+        const getData = async () => {
+            const rs = await methodGet(`/product/getListProduct?type=mu&pageIndex=${number}`);
+            console.log('swieper api', rs?.data);
+            setListProduct(rs?.data);
+        };
+
+        getData();
+    }, []);
     return (
         <div>
             <Swiper
@@ -33,7 +45,22 @@ export default function SwiperCustom({ children }) {
                 modules={[Pagination, Navigation]}
                 className="mySwiper"
             >
-                <SwiperSlide>
+                {listproduct &&
+                    listproduct?.productDTOList?.map((item, index) => {
+                        return (
+                            <SwiperSlide key={index}>
+                                <ProductItem
+                                    id={item?.id}
+                                    img={item?.image}
+                                    name={item?.name}
+                                    score={item?.score}
+                                    price={item?.price}
+                                    priceSale={item?.price_sale}
+                                />
+                            </SwiperSlide>
+                        );
+                    })}
+                {/* <SwiperSlide>
                     <ProductItem />
                 </SwiperSlide>
                 <SwiperSlide>
@@ -59,7 +86,7 @@ export default function SwiperCustom({ children }) {
                 </SwiperSlide>
                 <SwiperSlide>
                     <ProductItem />
-                </SwiperSlide>
+                </SwiperSlide> */}
             </Swiper>
         </div>
     );

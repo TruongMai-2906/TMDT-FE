@@ -54,17 +54,23 @@ export default function Product() {
                     </Col>
 
                     <Col xs={24} m={16} md={16} lg={16} xxl={16}>
-                        {/* <Select placeholder="Lọc theo tiêu chí ?" onChange={onChange} style={{ marginBottom: '10px' }}>
-                            <Option value="jack">Theo giá tăng dần +</Option>
-                            <Option value="lucy">Theo giá giảm dần -</Option>
-                            <Option value="tom">Dành cho nam $</Option>
-                            <Option value="tom">Dành cho nữ *</Option>
-                        </Select> */}
+                        <Select placeholder="Lọc theo tiêu chí ?" onChange={onChange} style={{ marginBottom: '10px' }}>
+                            <Option value="increase">Theo giá tăng dần +</Option>
+                            <Option value="decrease">Theo giá giảm dần -</Option>
+                            <Option value="nam">Dành cho nam $</Option>
+                            <Option value="nu">Dành cho nữ *</Option>
+                        </Select>
                         <Row className="product-list">
                             {listProduct?.map((item, index) => {
                                 return (
                                     <Col key={index} xs={11} m={12} md={7} lg={7} xxl={7} className="product-container">
-                                        <ProductItem id={item.id} img={item.image} name={item.name} />
+                                        <ProductItem
+                                            id={item.id}
+                                            img={item.image}
+                                            name={item.name}
+                                            price={item.price}
+                                            priceSale={item?.price_sale}
+                                        />
                                     </Col>
                                 );
                             })}
