@@ -92,13 +92,8 @@ public class ProductServiceImp implements ProductService {
     public GetProductListOutput filter(String name, String[] category, double price_start, double price_end, Pageable pageable) {
         int count=0;
         List<ProductDTO> productDTOList=new ArrayList<>();
-        System.out.println("Kiểm tra có name không");
         if (name != null){ // name ?
-            System.out.println("Có name: "+name);
-            System.out.println("Kiểm tra có category không");
             if ( !(category == null) ){ // name + category ?
-                System.out.println("Có category:");
-                System.out.println(!(category == null));
                if (price_start != 0 || price_end != 100000000){ // name + category + price
                    productDTOList = findByNameAndCategoryAndPrice(name, category, price_start, price_end, pageable);
                    count=productRepository.countByNameContainingIgnoreCaseAndCategoryKeyworkInAndPriceBetween(name, category, price_start, price_end);
@@ -110,7 +105,6 @@ public class ProductServiceImp implements ProductService {
                     productDTOList = findByNameAndPrice(name, price_start, price_end, pageable);
                     count=productRepository.countByNameContainingIgnoreCaseAndPriceBetween(name, price_start, price_end);
             }else { // name
-                System.out.println("Không có category, chỉ có name:" + name);
                 productDTOList = findByName(name, pageable);
                 count = countByName(name);
             }
