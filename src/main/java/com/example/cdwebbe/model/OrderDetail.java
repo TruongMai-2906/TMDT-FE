@@ -17,10 +17,12 @@ public class OrderDetail {
 
     private double totalPrice;
     private boolean status;
-    @JsonIgnore
+
+
     @ManyToOne
     @JoinColumn(name = "productId", referencedColumnName = "id")
     private Product product;
+
 
 
     @JsonIgnore

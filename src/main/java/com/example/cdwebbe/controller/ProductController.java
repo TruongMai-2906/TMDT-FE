@@ -2,12 +2,15 @@ package com.example.cdwebbe.controller;
 
 
 import com.example.cdwebbe.DTO.ProductDTO;
+
+
 import com.example.cdwebbe.model.Product;
 import com.example.cdwebbe.payload.ApiResponse;
 import com.example.cdwebbe.payload.GetProductListOutput;
 import com.example.cdwebbe.repository.ProductRepository;
 import com.example.cdwebbe.security.CurrentUser;
 import com.example.cdwebbe.security.UserPrincipal;
+
 import com.example.cdwebbe.service.ProductService;
 import com.example.cdwebbe.service.impl.ProductServiceImp;
 import org.hibernate.boot.model.source.spi.Sortable;
@@ -19,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +30,7 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
+
     ProductService productService;
     @Autowired
     ProductRepository productRepository;
@@ -50,6 +55,7 @@ public class ProductController {
         }
 
     }
+
 
     /**
      * - Hiển thị tất cả các sản phẩm.
@@ -100,6 +106,7 @@ public class ProductController {
         return ResponseEntity.ok().body(productListOutput);
     }
 
+
     @GetMapping("/getListProduct")
     public ResponseEntity<?> getListProductNek(@RequestParam("type") String type,@RequestParam(defaultValue ="1") int pageIndex){
         try {
@@ -117,6 +124,7 @@ public class ProductController {
                 getProductListOutput.getProductDTOList().add(productDTO);
 
             }
+
             getProductListOutput.setSizeTotal(listproduct.size()/12);
             return ResponseEntity.ok().body(getProductListOutput);
 

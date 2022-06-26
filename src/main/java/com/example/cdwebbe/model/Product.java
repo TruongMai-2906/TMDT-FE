@@ -18,10 +18,12 @@ public class Product {
     private Long id; //Đã sửa int -> Long.
 
     @NotBlank
+    @Size(max=100)
     private String name;
 
     @NotBlank
     private String image;
+
 
     @NotBlank
     @Column(length = 2000)

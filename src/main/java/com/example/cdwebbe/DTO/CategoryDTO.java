@@ -10,6 +10,7 @@ public class CategoryDTO {
     private String description;
     private String type;
     private String keywork;
+
     @JsonIgnore
     private List<ProductDTO> productList=new ArrayList<>();
 

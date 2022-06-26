@@ -15,6 +15,14 @@ public class ChangeToOrderRequest {
 		this.address = address;
 		this.phoneNumber = phoneNumber;
 	}
+
+	public ChangeToOrderRequest(int feeTotal, String address, String phoneNumber) {
+		this.feeTotal = feeTotal;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+	}
+
+
 	public int[] getIdProducts() {
 		return idProducts;
 	}

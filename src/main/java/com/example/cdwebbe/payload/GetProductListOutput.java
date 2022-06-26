@@ -7,6 +7,7 @@ import java.util.List;
 
 public class GetProductListOutput {
 
+
     private int sizeTotal;
     private List<ProductDTO> productDTOList = new ArrayList<>() {};
 
@@ -18,12 +19,14 @@ public class GetProductListOutput {
     public GetProductListOutput() {
     }
 
+
     public int getSizeTotal() {
         return sizeTotal;
     }
 
     public void setSizeTotal(int sizeTotal) {
         this.sizeTotal = sizeTotal;
+
     }
 
     public List<ProductDTO> getProductDTOList() {

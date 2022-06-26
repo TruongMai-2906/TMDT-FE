@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
+import com.example.cdwebbe.payload.ResponseOrderUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -124,6 +126,7 @@ public class OrderController {
 
 	}
 
+
 	private CartItem handleQuantityAndTotalPriceProduct(User userEntity, Product product) {
 		Cart cart = cartRepository.findByUser(userEntity);
 		CartItem cartItemEntity = cartItemRepository.findByCartAndProduct(cart, product);
@@ -137,12 +140,17 @@ public class OrderController {
 		 User user = userRepository.findOnedById(currentUser.getId());
 		 List<Order> orders=orderRepository.findByUserId(user.getId());
 //		 System.out.println(user);
-		 List<OrderDTO> result = new ArrayList<>();
+//		 List<OrderDTO> result = new ArrayList<>();
+
+		 List<ResponseOrderUser> responseList= new ArrayList<>();
 		 for (Order order : orders) {
-			 result.add(this.mapper.map(order,OrderDTO.class));
+			 List<OrderDetail> orderDetailList = orderDetailRepository.findAllByOrderId(order.getId());
+			 ResponseOrderUser responseOrderUser = new ResponseOrderUser(order.getId(),order.getDateCreate(),orderDetailList);
+			 responseList.add(responseOrderUser);
+
 		}
-		 System.out.println(result);
-		 return ResponseEntity.ok().body(result);
+		 return ResponseEntity.ok().body(responseList);
+
 	}
 
 }

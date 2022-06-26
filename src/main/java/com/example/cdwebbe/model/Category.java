@@ -65,6 +65,19 @@ public class Category {
         return productList;
     }
 
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", type='" + type + '\'' +
+                ", keywork='" + keywork + '\'' +
+                ", productList=" + productList +
+                '}';
+    }
+
+
     public void setProductList(List<Product> productList) {
         this.productList = productList;
     }

@@ -26,6 +26,7 @@ public class CdWebBeApplication {
     public static void main(String[] args) {
 
         ApplicationContext context =  SpringApplication.run(CdWebBeApplication.class, args);
+
         System.out.println("Good Luck !");
 
 
