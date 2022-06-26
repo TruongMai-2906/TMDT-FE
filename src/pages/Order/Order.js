@@ -24,7 +24,7 @@ export default function Order() {
         const adress = diachi + '-' + city + '-' + country;
         // name: ho + ' ' + ten,
         const data = {
-            idProducts: [],
+            // idProducts: [1, 2],
             feeTotal: 30000,
             address: adress,
             phoneNumber: phone,
