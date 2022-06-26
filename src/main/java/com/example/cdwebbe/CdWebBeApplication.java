@@ -26,9 +26,7 @@ public class CdWebBeApplication {
     public static void main(String[] args) {
 
         ApplicationContext context =  SpringApplication.run(CdWebBeApplication.class, args);
-//        ProductRepository productRepository = context.getBean(ProductRepository.class);
-//        Product product = productRepository.findOneById((1L));
-//        System.err.println(product.getId());
+        System.out.println("Good Luck !");
 
 
     }

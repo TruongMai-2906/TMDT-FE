@@ -2,27 +2,31 @@ package com.example.cdwebbe.controller;
 
 
 import com.example.cdwebbe.DTO.ProductDTO;
-import com.example.cdwebbe.config.ModelMapperConfig;
 import com.example.cdwebbe.model.Product;
 import com.example.cdwebbe.payload.ApiResponse;
 import com.example.cdwebbe.payload.GetProductListOutput;
 import com.example.cdwebbe.repository.ProductRepository;
 import com.example.cdwebbe.security.CurrentUser;
 import com.example.cdwebbe.security.UserPrincipal;
+import com.example.cdwebbe.service.ProductService;
+import com.example.cdwebbe.service.impl.ProductServiceImp;
+import org.hibernate.boot.model.source.spi.Sortable;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/product")
 public class ProductController {
+    @Autowired
+    ProductService productService;
     @Autowired
     ProductRepository productRepository;
     @Autowired
@@ -46,6 +50,69 @@ public class ProductController {
         }
 
     }
+
+    /**
+     * - Hiển thị tất cả các sản phẩm.
+     * - Tìm sản phẩm theo tên.
+     * - Lọc sản phẩm theo:
+     *      + category,
+     *      + theo mức giá;
+     * - Xắp xếp tất cả sản phẩm với thứ tự: tăng dần (ASC), giảm dần (DESC);
+     * - Có thể Xắp xếp theo: id, name, price, price sale, score;
+     * @param name
+     * @param category
+     * @param page
+     * @param limit
+     * @param sortName
+     * @param sortBy
+     * @param price_start
+     * @param price_end
+     * @return
+     */
+    @GetMapping("products")
+    public ResponseEntity<?> getProductList(
+            @RequestParam(name = "name", required = false, defaultValue = "null") String name,
+            @RequestParam(name = "category", required = false, defaultValue = "null") String category,
+            @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
+            @RequestParam(name = "limit", required = false, defaultValue = "12") Integer limit,
+            @RequestParam(name = "sort", required = false, defaultValue = "id") String sortName,
+            @RequestParam(name = "order", required = false, defaultValue = "ASC") String sortBy,
+            @RequestParam(name = "price_start", required = false, defaultValue = "0") Double price_start,
+            @RequestParam(name = "price_end", required = false, defaultValue = "100000000") Double price_end
+    ){
+        Sort sort=null;
+        if(sortBy.equalsIgnoreCase("ASC")){
+            sort=Sort.by(sortName).ascending();
+        }
+        if(sortBy.equalsIgnoreCase("DESC")){
+            sort=Sort.by(sortName).descending();
+        }
+
+        Pageable pageable=PageRequest.of(page-1, limit, sort);
+        int count;
+        List<ProductDTO> productDTOList=new ArrayList<>();
+        if (!name.equalsIgnoreCase("null")){
+            productDTOList = productService.findByName(name, pageable);
+            count = productService.countByName(name);
+        } else if (!category.equalsIgnoreCase("null")){
+            productDTOList = productService.findByCategory(category, pageable);
+            count = productRepository.countByCategoryKeywork(category);
+        } else if (price_start != 0 || price_end != 100000000){
+            productDTOList = productService.findByPrice(price_start, price_end, pageable);
+            count = productRepository.countByPriceBetween(price_start, price_end);
+        } else {
+            productDTOList = productService.findAll(pageable);
+            count = (int) productRepository.count();
+        }
+
+        int sizeTotal=(int) Math.ceil( (double)count/limit );
+
+        GetProductListOutput productListOutput=new GetProductListOutput();
+        productListOutput.setProductDTOList(productDTOList);
+        productListOutput.setSizeTotal(sizeTotal);
+        return ResponseEntity.ok().body(productListOutput);
+    }
+
     @GetMapping("/getListProduct")
     public ResponseEntity<?> getListProductNek(@RequestParam("type") String type,@RequestParam(defaultValue ="1") int pageIndex){
         try {
@@ -63,7 +130,7 @@ public class ProductController {
                 getProductListOutput.getProductDTOList().add(productDTO);
 
             }
-            getProductListOutput.setSizTotal(listproduct.size()/12);
+            getProductListOutput.setSizeTotal(listproduct.size()/12);
             return ResponseEntity.ok().body(getProductListOutput);
 
         }catch (Exception e){

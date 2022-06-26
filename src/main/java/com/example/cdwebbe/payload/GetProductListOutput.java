@@ -7,23 +7,23 @@ import java.util.List;
 
 public class GetProductListOutput {
 
-    private int sizTotal;
+    private int sizeTotal;
     private List<ProductDTO> productDTOList = new ArrayList<>() {};
 
-    public GetProductListOutput(int sizTotal, List<ProductDTO> productDTOList) {
-        this.sizTotal = sizTotal;
+    public GetProductListOutput(int sizeTotal, List<ProductDTO> productDTOList) {
+        this.sizeTotal = sizeTotal;
         this.productDTOList = productDTOList;
     }
 
     public GetProductListOutput() {
     }
 
-    public int getSizTotal() {
-        return sizTotal;
+    public int getSizeTotal() {
+        return sizeTotal;
     }
 
-    public void setSizTotal(int sizTotal) {
-        this.sizTotal = sizTotal;
+    public void setSizeTotal(int sizeTotal) {
+        this.sizeTotal = sizeTotal;
     }
 
     public List<ProductDTO> getProductDTOList() {
