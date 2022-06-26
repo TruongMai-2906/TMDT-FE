@@ -22,6 +22,7 @@ export default function CartProduct() {
         console.log();
         if (rs?.data) {
             NotifySuccess('Cập nhật số lượng sản phẩm thành công');
+            getData();
         } else {
             NotifyError('Cập nhật số lượng sản phẩm thất bại');
         }

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Introduce from '~/components/Banner/Introduce';
 import { NotifyError, NotifySuccess } from '~/Utils/Notice';
 import { methodGet, methodPost } from '~/Utils/Request';
 import './Order.scss';
 export default function Order() {
+    const navigate = useNavigate();
     const [country, setCountry] = useState('VietNam');
     const [ho, setHo] = useState('');
     const [ten, setTen] = useState('');
@@ -34,8 +36,11 @@ export default function Order() {
             NotifyError('Đặt hàng thất bại , vui lòng thử lại');
         });
         console.log({ rs });
-        if (rs?.data) {
+        if (rs?.data?.success) {
             NotifySuccess('Đặt hàng thành công =>>Chuyển hướng đến trang đơn hàng của tôi');
+            setTimeout(() => {
+                navigate('/my-order');
+            }, 500);
         } else {
             NotifyError('Đặt hàng thất bại');
         }
@@ -44,7 +49,7 @@ export default function Order() {
         <div>
             <Introduce body="Trang chủ" title="Trang chủ / Đặt hàng" />
             <div className="container">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={(e) => console.log('onSubmit:', e)}>
                     <div className="row">
                         <div className="col-lg-6 col-md-6">
                             <div className="checkbox-form mb-sm-40">
@@ -261,7 +266,7 @@ export default function Order() {
                                     </div>
                                 </div>
                                 <div className="wc-proceed-to-checkout">
-                                    <button type="submit">Tiến hành đặt hàng</button>
+                                    <div onClick={handleSubmit}>Tiến hành đặt hàng</div>
                                 </div>
                             </div>
                         </div>
