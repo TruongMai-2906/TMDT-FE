@@ -22,6 +22,7 @@ public class ChangeToOrderRequest {
 		this.phoneNumber = phoneNumber;
 	}
 
+
 	public int[] getIdProducts() {
 		return idProducts;
 	}

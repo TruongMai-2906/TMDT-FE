@@ -18,12 +18,14 @@ public class OrderDetail {
     private double totalPrice;
     private boolean status;
 
+
     @ManyToOne
     @JoinColumn(name = "productId", referencedColumnName = "id")
     private Product product;
 
 
-	@JsonIgnore
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="orderId",referencedColumnName = "id")
     private Order order;

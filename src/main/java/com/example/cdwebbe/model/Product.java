@@ -26,6 +26,7 @@ public class Product {
 
 
     @NotBlank
+    @Column(length = 2000)
     private String description;
 
     @NotBlank
