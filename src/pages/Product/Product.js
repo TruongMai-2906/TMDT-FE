@@ -34,11 +34,11 @@ export default function Product() {
                 console.log('Lỗi get product');
             });
 
-            console.log('list product', getProduct?.data?.productDTOList);
+            console.log('list product', getProduct?.data);
             setListProduct(getProduct?.data?.productDTOList);
             setPageIndex({
                 ...pageIndex,
-                sizetotalPage: getProduct?.data?.sizTotal * 10,
+                sizetotalPage: getProduct?.data?.sizeTotal * 10,
             });
             // setListProduct(getProduct?.data);
         };
@@ -54,12 +54,12 @@ export default function Product() {
                     </Col>
 
                     <Col xs={24} m={16} md={16} lg={16} xxl={16}>
-                        <Select placeholder="Lọc theo tiêu chí ?" onChange={onChange} style={{ marginBottom: '10px' }}>
+                        {/* <Select placeholder="Lọc theo tiêu chí ?" onChange={onChange} style={{ marginBottom: '10px' }}>
                             <Option value="jack">Theo giá tăng dần +</Option>
                             <Option value="lucy">Theo giá giảm dần -</Option>
                             <Option value="tom">Dành cho nam $</Option>
                             <Option value="tom">Dành cho nữ *</Option>
-                        </Select>
+                        </Select> */}
                         <Row className="product-list">
                             {listProduct?.map((item, index) => {
                                 return (
@@ -73,7 +73,7 @@ export default function Product() {
                                 <Paging
                                     current={pageIndex.currentPage}
                                     handleChange={handleChangePage}
-                                    size={pageIndex.sizetotalPage}
+                                    size={pageIndex?.sizetotalPage}
                                 />
                             </Col>
                         </Row>

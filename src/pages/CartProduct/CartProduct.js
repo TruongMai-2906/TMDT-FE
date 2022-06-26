@@ -35,22 +35,23 @@ export default function CartProduct() {
         });
         if (rs?.data) {
             NotifySuccess('Xóa sản phẩm thành công ');
+            getData();
         } else {
             NotifyError('Xóa thất bại');
         }
     };
+    const getData = async () => {
+        const rs = await methodGet('/cart/getListCardItem').catch((e) => {
+            NotifyError('Load Giỏ hàng thất bại');
+        });
+        if (rs?.data) {
+            console.log('data cart item ', rs?.data);
+            SetListCardItem(rs.data);
+        } else {
+            NotifyError('Kiểm tra lại =>>Fail');
+        }
+    };
     useEffect(() => {
-        const getData = async () => {
-            const rs = await methodGet('/cart/getListCardItem').catch((e) => {
-                NotifyError('Load Giỏ hàng thất bại');
-            });
-            if (rs?.data) {
-                console.log('data cart item ', rs?.data);
-                SetListCardItem(rs.data);
-            } else {
-                NotifyError('Kiểm tra lại =>>Fail');
-            }
-        };
         getData();
     }, []);
     return (

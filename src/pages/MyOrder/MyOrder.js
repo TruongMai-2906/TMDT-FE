@@ -51,7 +51,7 @@ export default function MyOrder() {
                                                             <tr key={index}>
                                                                 <td className="product-thumbnail">
                                                                     <Link
-                                                                        to={`/product-detail/${OrderDetail?.product.id}`}
+                                                                        to={`/product-detail/${OrderDetail?.product?.id}`}
                                                                     >
                                                                         <img
                                                                             src={OrderDetail?.product?.image}
