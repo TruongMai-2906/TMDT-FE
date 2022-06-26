@@ -1,28 +1,31 @@
 import React, { useState } from 'react';
 import './SlideBar.scss';
 export default function SlideBar() {
-    const [category, setCategory] = useState([
-        {
-            key: 'ao',
-            value: 'Áo',
-        },
-        {
-            key: 'quan',
-            value: 'Quần',
-        },
-        {
-            key: 'mu',
-            value: 'Mũ',
-        },
-        {
-            key: 'giay',
-            value: 'Giày',
-        },
-        {
-            key: 'khac',
-            value: 'Khác',
-        },
-    ]);
+    const [category, setCategory] = useState({
+        selectedFirst: 'ao',
+        listcategory: [
+            {
+                key: 'ao',
+                value: 'Áo',
+            },
+            {
+                key: 'quan',
+                value: 'Quần',
+            },
+            {
+                key: 'mu',
+                value: 'Mũ',
+            },
+            {
+                key: 'giay',
+                value: 'Giày',
+            },
+            {
+                key: 'khac',
+                value: 'Khác',
+            },
+        ],
+    });
 
     const onSelectCategogy = (key) => {
         //todo: key per cat for agrument to call ap
@@ -35,15 +38,16 @@ export default function SlideBar() {
             <div id="shop-cate-toggle" className="category-menu sidebar-menu sidbar-style">
                 <ul>
                     <li className="has-sub">
-                        <a href="https://www.facebook.com/">Thể loại</a>
+                        <a href="#">Thể loại</a>
                         <ul className="category-sub">
                             {category &&
-                                category.map((cat, index) => (
-                                    <li>
+                                category?.listcategory?.map((cat, index) => (
+                                    <li style={{ padding: '15px' }}>
                                         <div
                                             key={`cat-${index}`}
+                                            style={category.selectedFirst === cat.key ? { background: 'red' } : {}}
                                             href="https://www.facebook.com/"
-                                            onClick={onSelectCategogy(cat.key)}
+                                            onClick={(e) => onSelectCategogy(cat.key)}
                                         >
                                             {cat.value}
                                         </div>
