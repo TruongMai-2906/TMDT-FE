@@ -59,6 +59,12 @@ public class ProductController {
      *      + theo mức giá;
      * - Xắp xếp tất cả sản phẩm với thứ tự: tăng dần (ASC), giảm dần (DESC);
      * - Có thể Xắp xếp theo: id, name, price, price sale, score;
+     *
+     * Làm thêm:
+     * - Lọc theo nhiều category.
+     * - Lọc theo category + price.
+     * - Lọc theo name + category.
+     * - Lọc theo name + price.
      * @param name
      * @param category
      * @param page
@@ -71,8 +77,8 @@ public class ProductController {
      */
     @GetMapping("products")
     public ResponseEntity<?> getProductList(
-            @RequestParam(name = "name", required = false, defaultValue = "null") String name,
-            @RequestParam(name = "category", required = false, defaultValue = "null") String category,
+            @RequestParam(name = "name", required = false) String name,
+            @RequestParam(name = "category", required = false) String [] category,
             @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
             @RequestParam(name = "limit", required = false, defaultValue = "12") Integer limit,
             @RequestParam(name = "sort", required = false, defaultValue = "id") String sortName,
@@ -89,27 +95,8 @@ public class ProductController {
         }
 
         Pageable pageable=PageRequest.of(page-1, limit, sort);
-        int count;
-        List<ProductDTO> productDTOList=new ArrayList<>();
-        if (!name.equalsIgnoreCase("null")){
-            productDTOList = productService.findByName(name, pageable);
-            count = productService.countByName(name);
-        } else if (!category.equalsIgnoreCase("null")){
-            productDTOList = productService.findByCategory(category, pageable);
-            count = productRepository.countByCategoryKeywork(category);
-        } else if (price_start != 0 || price_end != 100000000){
-            productDTOList = productService.findByPrice(price_start, price_end, pageable);
-            count = productRepository.countByPriceBetween(price_start, price_end);
-        } else {
-            productDTOList = productService.findAll(pageable);
-            count = (int) productRepository.count();
-        }
 
-        int sizeTotal=(int) Math.ceil( (double)count/limit );
-
-        GetProductListOutput productListOutput=new GetProductListOutput();
-        productListOutput.setProductDTOList(productDTOList);
-        productListOutput.setSizeTotal(sizeTotal);
+        GetProductListOutput productListOutput= productService.filter(name, category, price_start,price_end, pageable);
         return ResponseEntity.ok().body(productListOutput);
     }
 

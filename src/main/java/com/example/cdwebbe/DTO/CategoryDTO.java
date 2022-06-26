@@ -1,18 +1,17 @@
 package com.example.cdwebbe.DTO;
 
-import com.example.cdwebbe.model.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CatagoryDTO {
+public class CategoryDTO {
     private Long id;//Đã sửa int -> Long.
     private String description;
     private String type;
     private String keywork;
     @JsonIgnore
-    private List<Product> productList=new ArrayList<>();
+    private List<ProductDTO> productList=new ArrayList<>();
 
 
     public Long getId() {
@@ -23,11 +22,11 @@ public class CatagoryDTO {
         this.id = id;
     }
 
-    public List<Product> getProductList() {
+    public List<ProductDTO> getProductList() {
         return productList;
     }
 
-    public void setProductList(List<Product> productList) {
+    public void setProductList(List<ProductDTO> productList) {
         this.productList = productList;
     }
 

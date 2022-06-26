@@ -1,8 +1,5 @@
 package com.example.cdwebbe.DTO;
 
-import com.example.cdwebbe.model.Category;
-import com.example.cdwebbe.model.Review;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,11 +9,11 @@ public class ProductDTO {
     private String image;
     private String description;
     private double price;
-    private  String color;
-    double price_sale;
+    private String color;
+    private double price_sale;
     private int score; // số s
-    private Category category;
-    private List<Review> reviewList=new ArrayList<>();
+    private CategoryDTO category;
+    private List<ReviewDTO> reviewList=new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -82,19 +79,19 @@ public class ProductDTO {
         this.score = score;
     }
 
-    public Category getCategory() {
+    public CategoryDTO getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryDTO category) {
         this.category = category;
     }
 
-    public List<Review> getReviewList() {
+    public List<ReviewDTO> getReviewList() {
         return reviewList;
     }
 
-    public void setReviewList(List<Review> reviewList) {
+    public void setReviewList(List<ReviewDTO> reviewList) {
         this.reviewList = reviewList;
     }
 }

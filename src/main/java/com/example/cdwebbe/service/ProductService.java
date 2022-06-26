@@ -1,6 +1,7 @@
 package com.example.cdwebbe.service;
 
 import com.example.cdwebbe.DTO.ProductDTO;
+import com.example.cdwebbe.payload.GetProductListOutput;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -45,4 +46,26 @@ public interface ProductService {
      * @return
      */
     public int countByName(String name);
+
+    /**
+     *
+     * @param name
+     * @param category
+     * @param price_start
+     * @param price_end
+     * @param pageable
+     * @return
+     */
+    public GetProductListOutput filter(String name, String[]category, double price_start, double price_end, Pageable pageable);
+
+    /**
+     * Request: filter product by one or many category.
+     *
+     * @param category (one or many)
+     * @param pageable
+     * @return
+     */
+    public List<ProductDTO> findByCategoryIn(String[]category, Pageable pageable);
+
+
 }

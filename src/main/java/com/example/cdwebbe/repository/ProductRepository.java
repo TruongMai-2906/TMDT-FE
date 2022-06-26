@@ -44,6 +44,45 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
 
     /**
      *
+     * @param keyword
+     * @return
+     */
+    public int countByCategoryKeywork(String keyword);
+
+    /**
+     * find Products by list category.
+     * @param keywork
+     * @param pageable
+     * @return
+     */
+    public Page<Product> findAllByCategoryKeyworkIn(String[]keywork, Pageable pageable);
+
+    /**
+     *
+     * @param keyword
+     * @return
+     */
+    public int countByCategoryKeyworkIn(String[] keyword);
+
+    /**
+     *
+     * @param name
+     * @param keywork
+     * @param pageable
+     * @return
+     */
+    public Page<Product> findAllByNameContainingIgnoreCaseAndCategoryKeyworkIn(String name, String[]keywork, Pageable pageable);
+
+    /**
+     *
+     * @param name
+     * @param keywork
+     * @return
+     */
+    public int countByNameContainingIgnoreCaseAndCategoryKeyworkIn(String name, String[]keywork);
+
+    /**
+     *
      * @param priceStart
      * @param priceEnd
      * @param pageable
@@ -54,16 +93,61 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     /**
      *
      * @param name
+     * @param keywork
+     * @param priceStart
+     * @param priceEnd
+     * @param pageable
      * @return
      */
-    public long countByNameContainingIgnoreCase(String name);
+    public Page<Product> findAllByNameContainingIgnoreCaseAndCategoryKeyworkInAndPriceBetween(String name, String[]keywork, double priceStart, double priceEnd, Pageable pageable);
 
     /**
      *
-     * @param keyword
+     * @param name
+     * @param keywork
+     * @param priceStart
+     * @param priceEnd
      * @return
      */
-    public int countByCategoryKeywork(String keyword);
+    public int countByNameContainingIgnoreCaseAndCategoryKeyworkInAndPriceBetween(String name, String[]keywork, double priceStart, double priceEnd);
+
+    /**
+     *
+     * @param keywork
+     * @param priceStart
+     * @param priceEnd
+     * @param pageable
+     * @return
+     */
+    public Page<Product> findAllByCategoryKeyworkInAndPriceBetween(String[]keywork, double priceStart, double priceEnd, Pageable pageable);
+
+    /**
+     *
+     * @param keywork
+     * @param priceStart
+     * @param priceEnd
+     * @return
+     */
+    public int countByCategoryKeyworkInAndPriceBetween(String[]keywork, double priceStart, double priceEnd);
+
+    /**
+     *
+     * @param name
+     * @param priceStart
+     * @param priceEnd
+     * @param pageable
+     * @return
+     */
+    public Page<Product> findAllByNameContainingIgnoreCaseAndPriceBetween(String name, double priceStart, double priceEnd, Pageable pageable);
+
+    /**
+     *
+     * @param name
+     * @param priceStart
+     * @param priceEnd
+     * @return
+     */
+    public int countByNameContainingIgnoreCaseAndPriceBetween(String name, double priceStart, double priceEnd);
 
     /**
      *
@@ -72,6 +156,13 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
      * @return
      */
     public int countByPriceBetween(double priceStart, double priceEnd);
+
+    /**
+     *
+     * @param name
+     * @return
+     */
+    public long countByNameContainingIgnoreCase(String name);
 
 
 }
