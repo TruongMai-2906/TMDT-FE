@@ -67,12 +67,10 @@ public class ProductController {
      * - Có thể Xắp xếp theo: id, name, price, price sale, score;
      *
      * Làm thêm:
-     * - Lọc theo nhiều category.
-     * - Lọc theo category + price.
-     * - Lọc theo name + category.
-     * - Lọc theo name + price.
+     * - Lọc theo name
+     *  + name +
      * @param name
-     * @param category
+     * @param categoryKeyword
      * @param page
      * @param limit
      * @param sortName
@@ -84,7 +82,8 @@ public class ProductController {
     @GetMapping("products")
     public ResponseEntity<?> getProductList(
             @RequestParam(name = "name", required = false) String name,
-            @RequestParam(name = "category", required = false) String [] category,
+            @RequestParam(name = "category", required = false) String [] categoryKeyword,
+            @RequestParam(name = "type", required = false) String [] categoryType,
             @RequestParam(name = "page", required = false, defaultValue = "1") Integer page,
             @RequestParam(name = "limit", required = false, defaultValue = "12") Integer limit,
             @RequestParam(name = "sort", required = false, defaultValue = "id") String sortName,
@@ -102,7 +101,7 @@ public class ProductController {
 
         Pageable pageable=PageRequest.of(page-1, limit, sort);
 
-        GetProductListOutput productListOutput= productService.filter(name, category, price_start,price_end, pageable);
+        GetProductListOutput productListOutput= productService.filter(name, categoryKeyword, categoryType, price_start,price_end, pageable);
         return ResponseEntity.ok().body(productListOutput);
     }
 

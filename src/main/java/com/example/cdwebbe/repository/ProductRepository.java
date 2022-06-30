@@ -12,159 +12,155 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
 
-    /**
-     *
-     * @param pageable
-     * @return
-     */
     Page<Product> findAll(Pageable pageable);
 
-    /**
-     *
-     * @param name
-     * @param pageable
-     * @return
-     */
+
     Page<Product> findByNameContainingIgnoreCase(String name, Pageable pageable);
 
-    /**
-     *
-     * @param id
-     * @return
-     */
+    public long countByNameContainingIgnoreCase(String name);
+
+
     Product findOneById(Long id);
 
-
-    /**
-     *
-     * @param keywork
-     * @param pageable
-     * @return
-     */
     public Page<Product> findAllByCategoryKeywork(String keywork, Pageable pageable);
 
-    /**
-     *
-     * @param keyword
-     * @return
-     */
     public int countByCategoryKeywork(String keyword);
 
-    /**
-     * find Products by list category.
-     * @param keywork
-     * @param pageable
-     * @return
-     */
+
     public Page<Product> findAllByCategoryKeyworkIn(String[]keywork, Pageable pageable);
 
-    /**
-     *
-     * @param keyword
-     * @return
-     */
     public int countByCategoryKeyworkIn(String[] keyword);
 
-    /**
-     *
-     * @param name
-     * @param keywork
-     * @param pageable
-     * @return
-     */
+
     public Page<Product> findAllByNameContainingIgnoreCaseAndCategoryKeyworkIn(String name, String[]keywork, Pageable pageable);
 
-    /**
-     *
-     * @param name
-     * @param keywork
-     * @return
-     */
     public int countByNameContainingIgnoreCaseAndCategoryKeyworkIn(String name, String[]keywork);
 
-    /**
-     *
-     * @param priceStart
-     * @param priceEnd
-     * @param pageable
-     * @return
-     */
+
     public Page<Product> findAllByPriceBetween(double priceStart, double priceEnd, Pageable pageable);
 
-    /**
-     *
-     * @param name
-     * @param keywork
-     * @param priceStart
-     * @param priceEnd
-     * @param pageable
-     * @return
-     */
+    public int countByPriceBetween(double priceStart, double priceEnd);
+
+
     public Page<Product> findAllByNameContainingIgnoreCaseAndCategoryKeyworkInAndPriceBetween(String name, String[]keywork, double priceStart, double priceEnd, Pageable pageable);
 
-    /**
-     *
-     * @param name
-     * @param keywork
-     * @param priceStart
-     * @param priceEnd
-     * @return
-     */
     public int countByNameContainingIgnoreCaseAndCategoryKeyworkInAndPriceBetween(String name, String[]keywork, double priceStart, double priceEnd);
 
-    /**
-     *
-     * @param keywork
-     * @param priceStart
-     * @param priceEnd
-     * @param pageable
-     * @return
-     */
+
     public Page<Product> findAllByCategoryKeyworkInAndPriceBetween(String[]keywork, double priceStart, double priceEnd, Pageable pageable);
 
-    /**
-     *
-     * @param keywork
-     * @param priceStart
-     * @param priceEnd
-     * @return
-     */
     public int countByCategoryKeyworkInAndPriceBetween(String[]keywork, double priceStart, double priceEnd);
 
-    /**
-     *
-     * @param name
-     * @param priceStart
-     * @param priceEnd
-     * @param pageable
-     * @return
-     */
+
     public Page<Product> findAllByNameContainingIgnoreCaseAndPriceBetween(String name, double priceStart, double priceEnd, Pageable pageable);
 
-    /**
-     *
-     * @param name
-     * @param priceStart
-     * @param priceEnd
-     * @return
-     */
     public int countByNameContainingIgnoreCaseAndPriceBetween(String name, double priceStart, double priceEnd);
 
     /**
      *
-     * @param priceStart
-     * @param priceEnd
-     * @return
-     */
-    public int countByPriceBetween(double priceStart, double priceEnd);
-
-    /**
-     *
+     *      + name + type ?
+     *          + name + type + category_keyword ?
+     *              + name + type + category_keyword + price ?
+     *  + type ?
+     *      + type + category_keyword ?
+     *          + type + category_keyword + price ?
+     *      + type + price ?
      * @param name
+     * @param categoryKeyword
+     * @param price_start
+     * @param price_end
+     * @param pageable
      * @return
      */
-    public long countByNameContainingIgnoreCase(String name);
 
+    //name + type + category_keyword + price
+    /**
+     * find product by name + type + category_keyword + price
+     * findAllBy:
+     * @param name: NameContainingIgnoreCase
+     * @param type: CategoryTypeIn
+     * @param keywork : CategoryKeyworkIn
+     * @param priceStart: PriceBetween
+     * @param priceEnd: PriceBetween
+     * @param pageable
+     * @return
+     */
+    public Page<Product> findAllByNameContainingIgnoreCaseAndCategoryTypeInAndCategoryKeyworkInAndPriceBetween( String name, String[]type, String[]keywork, double priceStart, double priceEnd, Pageable pageable );
+    public int countByNameContainingIgnoreCaseAndCategoryTypeInAndCategoryKeyworkInAndPriceBetween( String name, String[]type, String[]keywork, double priceStart, double priceEnd);
 
+    //name + type + category_keyword
+    /**
+     * find product by name + type + category_keyword
+     * findAllBy
+     * @param name: NameContainingIgnoreCase
+     * @param type: CategoryTypeIn
+     * @param keywork : CategoryKeyworkIn
+     * @param pageable
+     * @return
+     */
+    public Page<Product> findAllByNameContainingIgnoreCaseAndCategoryTypeInAndCategoryKeyworkIn( String name, String[]type, String[]keywork, Pageable pageable );
+    public int countByNameContainingIgnoreCaseAndCategoryTypeInAndCategoryKeyworkIn( String name, String[]type, String[]keywork);
+
+    //name + type
+    /**
+     * find product by name + type
+     * findAllBy
+     * @param name: NameContainingIgnoreCase
+     * @param type: CategoryTypeIn
+     * @param pageable
+     * @return
+     */
+    public Page<Product> findAllByNameContainingIgnoreCaseAndCategoryTypeIn( String name, String[]type, Pageable pageable );
+    public int countByNameContainingIgnoreCaseAndCategoryTypeIn( String name, String[]type);
+
+    //type + category_keyword + price
+    /**
+     * find product by type + category_keyword + price
+     * findAllBy
+     * @param type: CategoryTypeIn
+     * @param keywork : CategoryKeyworkIn
+     * @param priceStart: PriceBetween
+     * @param priceEnd: PriceBetween
+     * @param pageable
+     * @return
+     */
+    public Page<Product> findAllByCategoryTypeInAndCategoryKeyworkInAndPriceBetween(String[]type, String[]keywork, double priceStart, double priceEnd, Pageable pageable );
+    public int countByCategoryTypeInAndCategoryKeyworkInAndPriceBetween(String[]type, String[]keywork, double priceStart, double priceEnd);
+
+    //type + category_keyword
+    /**
+     * find product by type + category_keyword
+     * findAllBy
+     * @param type: CategoryTypeIn
+     * @param keywork : CategoryKeyworkIn
+     * @param pageable
+     * @return
+     */
+    public Page<Product> findAllByCategoryTypeInAndCategoryKeyworkIn(String[]type, String[]keywork, Pageable pageable );
+    public int countByCategoryTypeInAndCategoryKeyworkIn(String[]type, String[]keywork);
+
+    //type + price
+    /**
+     * find product by type + price
+     * findAllBy
+     * @param type: CategoryTypeIn
+     * @param priceStart: PriceBetween
+     * @param priceEnd: PriceBetween
+     * @param pageable
+     * @return
+     */
+    public Page<Product> findAllByCategoryTypeInAndPriceBetween(String[]type, double priceStart, double priceEnd, Pageable pageable );
+    public int countByCategoryTypeInAndPriceBetween(String[]type, double priceStart, double priceEnd);
+
+    //type
+    /**
+     * find product by type
+     * findAllBy
+     * @param type: CategoryTypeIn
+     * @param pageable
+     * @return
+     */
+    public Page<Product> findAllByCategoryTypeIn(String[]type, Pageable pageable );
+    public int countByCategoryTypeIn(String[]type);
 
 }

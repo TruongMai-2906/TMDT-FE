@@ -23,14 +23,6 @@ public interface ProductService {
     public List<ProductDTO> findByName(String name, Pageable pageable);
 
     /**
-     * Request: find products by property:Category.keyword; And products pagination;
-     * @param keyword
-     * @param pageable
-     * @return
-     */
-    public List<ProductDTO> findByCategory(String keyword, Pageable pageable);
-
-    /**
      * Request: 1.find products by property:price with: priceStart < price  < priceEnd ;
      *          2.And products pagination;
      * @param priceStart
@@ -50,17 +42,16 @@ public interface ProductService {
     /**
      *
      * @param name
-     * @param category
+     * @param categoryKeyword
      * @param price_start
      * @param price_end
      * @param pageable
      * @return
      */
-    public GetProductListOutput filter(String name, String[]category, double price_start, double price_end, Pageable pageable);
+    public GetProductListOutput filter(String name, String[]categoryKeyword, String[]categoryType, double price_start, double price_end, Pageable pageable);
 
     /**
      * Request: filter product by one or many category.
-     *
      * @param category (one or many)
      * @param pageable
      * @return
