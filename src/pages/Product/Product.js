@@ -6,13 +6,28 @@ import ProductItem from '~/components/Products/ProductItem/ProductItem';
 import Paging from '~/components/Paging/Paging';
 import { methodGet } from '~/Utils/Request';
 import { Select } from 'antd';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { NotifyError } from '~/Utils/Notice';
 const { Option } = Select;
 export default function Product() {
+    const location = useLocation();
+    const navigate = useNavigate();
+
     const [pageIndex, setPageIndex] = useState({
         page: 1,
         sizetotalPage: 80,
         currentPage: 1,
+        urlOriginal: '/product/products?',
+        urlMain: '/product/products?',
+        category: '',
+        sort: '',
     });
+    console.log('pageIndex', pageIndex);
+    const [listProduct, setListProduct] = useState([]);
+
+    const ChangeStateComponentCha = (e) => {
+        setPageIndex(e);
+    };
     const handleChangePage = (pagenek) => {
         console.log('page', pagenek);
         setPageIndex({
@@ -21,42 +36,54 @@ export default function Product() {
             currentPage: pagenek,
         });
     };
-    console.log('page index', pageIndex);
-    const [listProduct, setListProduct] = useState([]);
+
     const onChange = (value) => {
-        console.log(`selected ${value}`);
+        if (pageIndex?.urlMain.includes(value)) {
+            NotifyError('gì z cha');
+        } else {
+            console.log('value la', value);
+            const url = `${pageIndex?.urlMain}${pageIndex.category}${value}&page=${pageIndex.page}`;
+            console.log('url increase', url);
+            navigate(url);
+            setPageIndex({
+                ...pageIndex,
+                sort: value,
+            });
+        }
     };
+
     useEffect(() => {
         const getListProduct = async () => {
-            const url = `/product/getListProduct?type=mu&pageIndex=${pageIndex.page}`;
-            console.log('url là', url);
+            console.log('location trc khi get API là', location?.search);
+            const url = `${pageIndex.urlMain}${pageIndex.category}${pageIndex.sort}&page=${pageIndex.page}`;
             const getProduct = await methodGet(url).catch((e) => {
                 console.log('Lỗi get product');
             });
-
-            console.log('list product', getProduct?.data);
-            setListProduct(getProduct?.data?.productDTOList);
-            setPageIndex({
-                ...pageIndex,
-                sizetotalPage: getProduct?.data?.sizeTotal * 10,
-            });
-            // setListProduct(getProduct?.data);
+            if (getProduct?.data) {
+                console.log('list product', getProduct?.data);
+                setListProduct(getProduct?.data?.productDTOList);
+                setPageIndex({
+                    ...pageIndex,
+                    sizetotalPage: getProduct?.data?.sizeTotal * 10,
+                });
+                navigate(url);
+            }
         };
         getListProduct();
-    }, [pageIndex.page]);
+    }, [pageIndex.page, pageIndex.urlMain, pageIndex.sort]);
     return (
         <div>
             <Introduce title="Trang chủ" body={'Trang chủ / Danh sách sản phẩm'} />
             <div className="container">
                 <Row>
                     <Col xs={24} sm={8} md={8} lg={8} xxl={8}>
-                        <SlideBar />
+                        <SlideBar setChangeUrl={ChangeStateComponentCha} pageIndex={pageIndex} />
                     </Col>
 
                     <Col xs={24} m={16} md={16} lg={16} xxl={16}>
                         <Select placeholder="Lọc theo tiêu chí ?" onChange={onChange} style={{ marginBottom: '10px' }}>
-                            <Option value="increase">Theo giá tăng dần +</Option>
-                            <Option value="decrease">Theo giá giảm dần -</Option>
+                            <Option value="&sort=price&order=ASC">Theo giá tăng dần +</Option>
+                            <Option value="&sort=price&order=DESC">Theo giá giảm dần -</Option>
                             <Option value="nam">Dành cho nam $</Option>
                             <Option value="nu">Dành cho nữ *</Option>
                         </Select>

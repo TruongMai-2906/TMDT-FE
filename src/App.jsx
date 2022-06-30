@@ -25,7 +25,7 @@ import HomeAdmin from './pages/Admin/HomeAdmin/HomeAdmin';
 export default function App() {
     const checkRole = localStorage.getItem('role');
     console.log(checkRole);
-    console.log("abcccccccccccccc");
+    console.log('abcccccccccccccc');
     return (
         <BrowserRouter>
             <div className="app">
@@ -51,12 +51,11 @@ export default function App() {
                         <Route path="/search/:keywork" element={<Search />} />
                         <Route path="/account-info" element={<AccountInfo />} />
                         <Route path="/product-detail/:id" element={<ProductDetail />} />
-                        <Route path="/product" element={<Product />} />
+                        <Route path="/product/*" element={<Product />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/info-shop" element={<InfoShop />} />
                         <Route path="*" element={<NotFound />} />
-                        
                     </Routes>
                 </div>
             </div>

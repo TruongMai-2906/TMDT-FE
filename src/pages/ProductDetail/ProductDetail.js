@@ -31,7 +31,7 @@ export default function ProductDetail() {
     const onFinish = async (values) => {
         console.log(values);
         const dataPost = {
-            productid: 1,
+            productid: params?.id,
             quantity: 1,
         };
         const rs = await methodPost('/cart/add', dataPost).catch((e) => {

@@ -1,35 +1,47 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './SlideBar.scss';
-export default function SlideBar() {
+export default function SlideBar({ setChangeUrl, pageIndex }) {
+    const navigate = useNavigate();
     const [category, setCategory] = useState({
         selectedFirst: 'ao',
         listcategory: [
             {
-                key: 'ao',
-                value: 'Áo',
+                key: 'Áo',
+                value: '&category=Áo nữ&category=Áo nam',
             },
             {
-                key: 'quan',
-                value: 'Quần',
+                key: 'Quần',
+                value: '&category=Quần nữ&category=Quần nam',
             },
             {
-                key: 'mu',
-                value: 'Mũ',
+                key: 'Mũ',
+                value: '&category=Mũ nữ&category=Mũ nam',
             },
             {
-                key: 'giay',
-                value: 'Giày',
+                key: 'Giày',
+                value: '&category=Giày nữ&category=Giày nam',
             },
             {
-                key: 'khac',
-                value: 'Khác',
+                key: 'Khác',
+                value: '&category=khac',
             },
         ],
     });
 
     const onSelectCategogy = (key) => {
-        //todo: key per cat for agrument to call ap
-        console.log(key);
+        console.log('key chon', key);
+        setCategory({
+            ...category,
+            selectedFirst: key,
+        });
+        const Urlnew = `${pageIndex?.urlOriginal}${key}`;
+        console.log('url new ở slidebar', Urlnew);
+        setChangeUrl({
+            ...pageIndex,
+            urlMain: Urlnew,
+        });
+        navigate(Urlnew);
     };
 
     return (
@@ -47,80 +59,14 @@ export default function SlideBar() {
                                             key={`cat-${index}`}
                                             style={category.selectedFirst === cat.key ? { background: 'red' } : {}}
                                             href="https://www.facebook.com/"
-                                            onClick={(e) => onSelectCategogy(cat.key)}
+                                            onClick={(e) => onSelectCategogy(cat.value)}
                                         >
-                                            {cat.value}
+                                            {cat.key}
                                         </div>
                                     </li>
                                 ))}
                         </ul>
-                        {/* <!-- category submenu end--> */}
                     </li>
-                    {/* <li className="has-sub">
-                        <a href="https://www.facebook.com/">Dành cho Nam</a>
-                        <ul className="category-sub">
-                            <li>
-                                <a href="https://www.facebook.com/">Áo ( Len, Khoác,Phông ,Sơ mi)</a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/">Quần(Kaki, Jean)</a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/">Combo(Ngẫu nhiên)</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li className="has-sub">
-                        <a href="https://www.facebook.com/">Dành cho nữ</a>
-                        <ul className="category-sub">
-                            <li>
-                                <a href="https://www.facebook.com/">Áo( Ni,Khoác,Len )</a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/">Quần</a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/">Váy Liền</a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/">Combo ngẫu nhiên</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li className="has-sub">
-                        <a href="https://www.facebook.com/">Dịch Vụ</a>
-                        <ul className="category-sub">
-                            <li>
-                                <a href="https://www.facebook.com/">Cho Vay Trả Góp</a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/">Đăng Kí Bảo Hiểm Xe</a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/">Làm Biển Số Theo Tỉnh</a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/">:D</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li className="has-sub">
-                        <a href="https://www.facebook.com/">Tin Tức Khuyến Mãi</a>
-                        <ul className="category-sub">
-                            <li>
-                                <a href="https://www.facebook.com/">Khuyến Mãi Mới Nhất</a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/">Sale 30% Nhân Sự Kiện 20/10</a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/">Giờ Vàng, Mua Xe trả góp Giá 0d</a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/">:D</a>
-                            </li>
-                        </ul>
-                    </li> */}
                 </ul>
             </div>
         </div>

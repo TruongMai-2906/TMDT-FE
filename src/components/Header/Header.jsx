@@ -50,7 +50,7 @@ export default function Header() {
                         <div className="full">
                             <div className="center-desk">
                                 <div className="logo">
-                                    <Link to="/" className={mobile ? "header-mobile__logo--hidden" : ""}>
+                                    <Link to="/" className={mobile ? 'header-mobile__logo--hidden' : ''}>
                                         <img src="images/logo.png" alt="#" />
                                     </Link>
                                 </div>
@@ -143,7 +143,7 @@ export default function Header() {
                         </nav>
                     </div>
                 </div>
-                <Link to="/" className={mobile ? "header-mobile__logo" : "header-mobile__logo--disable"}>
+                <Link to="/" className={mobile ? 'header-mobile__logo' : 'header-mobile__logo--disable'}>
                     <img src="images/logo.png" alt="#" />
                 </Link>
             </div>
