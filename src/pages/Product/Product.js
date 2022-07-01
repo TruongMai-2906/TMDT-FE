@@ -84,8 +84,8 @@ export default function Product() {
                         <Select placeholder="Lọc theo tiêu chí ?" onChange={onChange} style={{ marginBottom: '10px' }}>
                             <Option value="&sort=price&order=ASC">Theo giá tăng dần +</Option>
                             <Option value="&sort=price&order=DESC">Theo giá giảm dần -</Option>
-                            <Option value="nam">Dành cho nam $</Option>
-                            <Option value="nu">Dành cho nữ *</Option>
+                            <Option value="&type=nam">Dành cho nam $</Option>
+                            <Option value="&type=nữ">Dành cho nữ *</Option>
                         </Select>
                         <Row className="product-list">
                             {listProduct?.map((item, index) => {
