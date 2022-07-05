@@ -33,7 +33,9 @@ public class Order {
 
 
     private  double shipfee;
-    
+
+	private String status;
+
     private String phoneNumber;
     
 
@@ -60,6 +62,19 @@ public class Order {
 		this.orderDetailList = orderDetailList;
 	}
 
+	public Order(Long id, String address, @Nullable Date dateDelivery, @Nullable Date dateCreate, double totalPriceOrder, double shipfee, String status, String phoneNumber, User user, List<OrderDetail> orderDetailList) {
+		this.id = id;
+		this.address = address;
+		this.dateDelivery = dateDelivery;
+		this.dateCreate = dateCreate;
+		this.totalPriceOrder = totalPriceOrder;
+		this.shipfee = shipfee;
+		this.status = status;
+		this.phoneNumber = phoneNumber;
+		this.user = user;
+		this.orderDetailList = orderDetailList;
+	}
+
 	@JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userID", referencedColumnName = "id")
@@ -75,6 +90,14 @@ public class Order {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public void setId(Long id) {
@@ -120,6 +143,7 @@ public class Order {
 	public void setShipfee(double shipfee) {
 		this.shipfee = shipfee;
 	}
+
 
 	public User getUser() {
 		return user;

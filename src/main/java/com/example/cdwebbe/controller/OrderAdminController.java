@@ -9,6 +9,7 @@ import com.example.cdwebbe.payload.EditOrderRequest;
 import com.example.cdwebbe.payload.OuputListOderAdmin;
 import com.example.cdwebbe.payload.ResponseOrderUser;
 import com.example.cdwebbe.repository.OrderRepository;
+import com.example.cdwebbe.repository.UserRepository;
 import com.example.cdwebbe.security.CurrentUser;
 import com.example.cdwebbe.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ import java.util.List;
 public class OrderAdminController {
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/getAllListOrderUser")
     public ResponseEntity<?> getAllOrderForAdmin(@CurrentUser UserPrincipal currentUser,@RequestParam(defaultValue ="1") int pageIndex) {
@@ -33,9 +36,25 @@ public class OrderAdminController {
                 Sort sort = Sort.by("id").ascending();
                 Pageable pageable = PageRequest.of(pageIndex,1,sort);
                 List<Order> orders = orderRepository.findAll(pageable).getContent();
-                OuputListOderAdmin outputListOderAdmin = new OuputListOderAdmin();
 
-                return ResponseEntity.ok().body(orders);
+                List<OuputListOderAdmin> ketqua = new ArrayList<>();
+                for(int i=0;i<orders.size();i++){
+                    Order orderTemp = orders.get(i);
+                    OuputListOderAdmin temp = new OuputListOderAdmin();
+                    temp.setId(orderTemp.getId());
+                    temp.setAddress(orderTemp.getAddress());
+                    temp.setShipfee(orderTemp.getShipfee());
+                    temp.setDatecreated(orderTemp.getDateCreate().toString());
+                    temp.setPhone_number(orderTemp.getPhoneNumber());
+                    temp.setTotal_price_order(orderTemp.getTotalPriceOrder());
+                    temp.setUserid(orderTemp.getUser().getUsername());
+                    temp.setStatus(orderTemp.getStatus());
+                    ketqua.add(temp);
+//                    User user =userRepository.find
+
+
+                }
+                return ResponseEntity.ok().body(ketqua);
             }catch (Exception e){
 
             }

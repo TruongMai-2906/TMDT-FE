@@ -92,6 +92,7 @@ public class OrderController {
 			User userEntity = this.userRepository.findById(currentUser.getId()).get();
 			order.setUser(userEntity);
 			order.setDateCreate(new Date());
+			order.setStatus("Đang giao");
 			order.setAddress(changeToOrderRequest.getAddress());
 			order.setPhoneNumber(changeToOrderRequest.getPhoneNumber());
 			orderRepository.save(order);
