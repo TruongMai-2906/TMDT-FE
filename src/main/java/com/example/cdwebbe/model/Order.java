@@ -61,12 +61,12 @@ public class Order {
 	}
 
 	@JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userID", referencedColumnName = "id")
     private User user;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetailList=new ArrayList<>();
 
     public Order(){
