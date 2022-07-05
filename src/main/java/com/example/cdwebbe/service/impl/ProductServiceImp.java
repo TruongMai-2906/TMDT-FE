@@ -8,11 +8,14 @@ import com.example.cdwebbe.repository.ProductRepository;
 import com.example.cdwebbe.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 @Service
 public class ProductServiceImp implements ProductService {
     @Autowired
@@ -302,5 +305,26 @@ public class ProductServiceImp implements ProductService {
     public int countByName(String name) {
         return (int)productRepository.countByNameContainingIgnoreCase(name);
     }
+//cua Hiep
+	@Override
+	public Map<String, Object> listProductAdmin(Pageable pageable) {
+			Page<Product> pageTuts;
+//			List<ProductDTO> listProductResponse=this.findAll(pageable);
+//			 Map<String, Object> result = new HashMap<>();
+			pageTuts=this.productRepository.findAll(pageable);
+			List<Product> listProduct=pageTuts.getContent();
+			List<ProductDTO> listProductDTO=new ArrayList<ProductDTO>();
+			Map<String, Object> map=new HashMap<>();
+			for (Product product : listProduct) {
+				ProductDTO dto=modelMapper.map(product, ProductDTO.class);
+					listProductDTO.add(dto);
+			}	
+			map.put("products",listProductDTO);
+			map.put("currentPage", pageTuts.getNumber());
+			map.put("totalPages", pageTuts.getTotalPages());
+			map.put("totalItems", pageTuts.getTotalElements());
+			map.put("totalElement", pageTuts.getNumberOfElements());
+		return map;
+	}
 
 }

@@ -5,6 +5,7 @@ import com.example.cdwebbe.payload.GetProductListOutput;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
     /**
@@ -57,6 +58,8 @@ public interface ProductService {
      * @return
      */
     public List<ProductDTO> findByCategoryIn(String[]category, Pageable pageable);
+
+	public Map<String, Object> listProductAdmin(Pageable pageable);
 
 
 }

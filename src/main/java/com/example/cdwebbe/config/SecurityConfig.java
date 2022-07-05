@@ -91,6 +91,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                     .antMatchers(HttpMethod.GET,"/product/**")
                         .permitAll()
+//                        admin cua hiep
+                        .antMatchers(HttpMethod.GET,"/admin/product/**")
+                        .permitAll()
+                        .antMatchers(HttpMethod.POST,"/admin/product/**")
+                        .permitAll()
                     .anyRequest()
                         .authenticated();
 

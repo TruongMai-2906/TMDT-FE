@@ -17,19 +17,19 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //Đã sửa int -> Long.
 
-    @NotBlank
+  
     @Size(max=100)
     private String name;
 
-    @NotBlank
+
     private String image;
 
 
-    @NotBlank
+
     @Column(length = 2000)
     private String description;
 
-    @NotBlank
+    
     private double price;
 
     @Nullable
@@ -41,7 +41,7 @@ public class Product {
     @Nullable
     private int score; // số sao
 
-    @NotBlank
+    
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="categoryId", referencedColumnName = "id")

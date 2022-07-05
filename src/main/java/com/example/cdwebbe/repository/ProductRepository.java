@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
 
@@ -162,5 +164,8 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
      */
     public Page<Product> findAllByCategoryTypeIn(String[]type, Pageable pageable );
     public int countByCategoryTypeIn(String[]type);
+
+    @Transactional
+	void deleteOneById(Long id);
 
 }
