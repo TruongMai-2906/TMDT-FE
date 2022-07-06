@@ -49,7 +49,7 @@ export default function Search() {
             <Introduce title="Trang chủ" body="Trang chủ / Tìm kiếm sản phẩm" />
             <div className="container">
                 <Row gutter={16}>
-                    {listKetqua ? (
+                    {listKetqua?.sizeTotal > 0 ? (
                         listKetqua?.productDTOList?.map((item, index) => {
                             return (
                                 <Col key={index} xs={12} m={12} md={8} lg={8} xxl={8}>

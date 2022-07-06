@@ -21,6 +21,7 @@ import MyOrder from './pages/MyOrder/MyOrder';
 import SlideBar from './components/Admin/SlideBar/SlideBar';
 import LayoutAdmin from './components/Admin/LayoutAdmin/LayoutAdmin';
 import HomeAdmin from './pages/Admin/HomeAdmin/HomeAdmin';
+import RecoveryPass from './pages/RecoveryPass/RecoveryPass';
 
 export default function App() {
     const checkRole = localStorage.getItem('role');
@@ -55,6 +56,7 @@ export default function App() {
                         <Route path="/about" element={<About />} />
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/info-shop" element={<InfoShop />} />
+                        <Route path="/recovery" element={<RecoveryPass />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </div>

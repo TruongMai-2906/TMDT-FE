@@ -105,6 +105,9 @@ export default function Login() {
                             <Link className="login-form-register" to="/signUp">
                                 Bạn chưa có tài khoản .Vui lòng Đăng ký !
                             </Link>
+                            <Link style={{ marginLeft: '10%' }} className="login-form-register" to="/recovery">
+                                Quên mật khẩu ?
+                            </Link>
                         </Form.Item>
                     </Form.Item>
 
