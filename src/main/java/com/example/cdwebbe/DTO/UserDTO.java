@@ -8,6 +8,7 @@ public class UserDTO {
     private String gender;
     private String address;
     private String phone;
+    private boolean status;
     private int amountOrder;
     private double amountSpent;
 
@@ -15,6 +16,14 @@ public class UserDTO {
      * Getter/setter:
      * @return
      */
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }

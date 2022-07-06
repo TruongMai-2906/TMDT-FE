@@ -56,6 +56,9 @@ public class User extends DateAudit {
     @Nullable
     private String phone;
 
+    @Nullable
+    private boolean status;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -139,6 +142,14 @@ public class User extends DateAudit {
                 ", phone='" + phone + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public Long getId() {

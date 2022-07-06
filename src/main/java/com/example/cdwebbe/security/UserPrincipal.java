@@ -33,6 +33,9 @@ public class UserPrincipal implements UserDetails {
     private String phone;
 
     @JsonIgnore
+    private boolean status; // Học thêm vô để làm chức năng setting status
+
+    @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
     private Collection<? extends GrantedAuthority> authorities;
@@ -70,6 +73,11 @@ public class UserPrincipal implements UserDetails {
     }
 
     public UserPrincipal(){}
+
+    //Học thêm vô để làm chức năng setting status
+    public boolean isStatus() {
+        return status;
+    }
 
     public Long getId() {
         return id;
