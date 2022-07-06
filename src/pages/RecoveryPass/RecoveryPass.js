@@ -6,6 +6,7 @@ import { Button, Input } from 'antd';
 import { methodGet } from '~/Utils/Request';
 import { NotifyError, NotifySuccess } from '~/Utils/Notice';
 import { useNavigate } from 'react-router-dom';
+import Footer from '~/components/Footer/Footer';
 
 const RecoveryPass = () => {
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ const RecoveryPass = () => {
                         span: 4,
                     }}
                     wrapperCol={{
-                        span: 9,
+                        span: 12,
                     }}
                     initialValues={{
                         remember: true,
@@ -41,7 +42,7 @@ const RecoveryPass = () => {
                 >
                     <h1>Vui lòng nhập vào Email đăng kí tài khoản ! </h1>
                     <Form.Item
-                        label="email"
+                        label="Email"
                         name="Email"
                         rules={[
                             {
@@ -68,6 +69,7 @@ const RecoveryPass = () => {
                     </Form.Item>
                 </Form>
             </div>
+            <Footer />
         </>
     );
 };

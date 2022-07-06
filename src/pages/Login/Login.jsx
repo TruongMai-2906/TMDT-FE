@@ -7,6 +7,7 @@ import Info from '~/components/Banner/Info';
 import Mgtop from '~/components/MgTop/Mgtop';
 import Introduce from '~/components/Banner/Introduce';
 import { methodGet, methodPost } from '~/Utils/Request';
+import Footer from '~/components/Footer/Footer';
 
 export default function Login() {
     const navigate = useNavigate();
