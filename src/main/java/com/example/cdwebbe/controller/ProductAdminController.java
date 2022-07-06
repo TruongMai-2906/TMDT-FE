@@ -1,5 +1,7 @@
 package com.example.cdwebbe.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.cdwebbe.DTO.ProductAdminDTO;
 import com.example.cdwebbe.DTO.ProductDTO;
 import com.example.cdwebbe.model.Product;
+import com.example.cdwebbe.payload.ApiResponse;
 import com.example.cdwebbe.repository.ProductRepository;
 import com.example.cdwebbe.service.ProductService;
 
@@ -35,6 +40,7 @@ public class ProductAdminController {
 	    @GetMapping("listProducts")
 	    public ResponseEntity<?> getListProductAdmin(@RequestParam(defaultValue = "0") int pageIndex,
 	    		@RequestParam(defaultValue = "12") int pageSize,@RequestParam(required = false) List<String> sortBy){
+	    	try {
 	    		Pageable pageable = PageRequest.of(pageIndex, pageSize);
 		    	if(sortBy!=null) {
 		    		String sortTheo=sortBy.get(0);
@@ -79,33 +85,83 @@ public class ProductAdminController {
 		    	}
 	    		Map<String, Object> listProductAdmin=this.productService.listProductAdmin(pageable);
 	    	return ResponseEntity.ok().body(listProductAdmin);
+			} catch (Exception e) {
+				   return ResponseEntity.ok().body(new ApiResponse(false,"Có lỗi đã xảy ra thử lại"+e));
+			}
+	    	
 	    }
 	    //delete
 	    @PostMapping("deleteProduct/{id}")
 	    public ResponseEntity<?> deleteProduct(@PathVariable Long id){
-	    	System.out.println(id);
-	    	productRepository.deleteOneById(id);
-			return ResponseEntity.ok().body("Delete Successfull");
+	    	try {
+	    		System.out.println(id);
+		    	productRepository.deleteOneById(id);
+				return ResponseEntity.ok().body("Delete Successfull");
+				
+			} catch (Exception e) {
+				   return ResponseEntity.ok().body(new ApiResponse(false,"Có lỗi đã xảy ra thử lại"+e));
+			}
+	    
 	    	
 	    }
 //	    detail
 	    @PostMapping("detailProduct/{id}")
 	    public ResponseEntity<?> detailProduct(@PathVariable Long id){
-	    	Product product=this.productRepository.findOneById(id);
-	    	ProductDTO productDTO=modelMapper.map(product, ProductDTO.class);
-	    	return ResponseEntity.ok().body(productDTO);
+	    	try {
+	    		Product product=this.productRepository.findOneById(id);
+		    	ProductDTO productDTO=modelMapper.map(product, ProductDTO.class);
+		    	return ResponseEntity.ok().body(productDTO);
+			} catch (Exception e) {
+				 return ResponseEntity.ok().body(new ApiResponse(false,"Có lỗi đã xảy ra thử lại"+e));
+			}
 	    }
 //	save Repository
 	    @PostMapping("saveProduct")
 	    public ResponseEntity<?> saveProduct(@RequestBody ProductDTO productdto){
-	    	Long id=productdto.getId();
-//	    	Product product=this.productRepository.findOneById(id);
-	    	Product product=modelMapper.map(productdto, Product.class);
-	    	System.out.println(product);
-	    	productRepository.save(product);
-	    	
-	    	
-	    	return ResponseEntity.ok().body("save Successfull");
+	    	try {
+	    		Long id=productdto.getId();
+//		    	Product product=this.productRepository.findOneById(id);
+		    	Product product=modelMapper.map(productdto, Product.class);
+		    	System.out.println(product);
+		    	productRepository.save(product);
+		    	
+		    	
+		    	return ResponseEntity.ok().body("save Successfull");
+			} catch (Exception e) {
+				 return ResponseEntity.ok().body(new ApiResponse(false,"Có lỗi đã xảy ra thử lại"+e));
+			}
 	    }
-
+//	    postProduct
+	    String image="";
+	    @PostMapping("postImageProduct")
+	    public ResponseEntity<?> postImageProduct(@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException{
+	try {
+		file.transferTo(new File("C:\\Users\\Admin\\Desktop\\tmdtFE\\TMDT-FE\\public\\images\\"+file.getOriginalFilename()));
+//		System.out.println(productDTO);
+		System.out.println(file.getOriginalFilename());
+		image=file.getOriginalFilename();
+//		Product product=modelMapper.map(productDTO, Product.class);
+//		product.setId(productDTO.getId()+1);
+//		product.setImage(file.getOriginalFilename());
+//		productRepository.save(product);
+		
+	return ResponseEntity.ok().body("save Successfull");
+	} catch (Exception e) {
+		 return ResponseEntity.ok().body(new ApiResponse(false,"Có lỗi đã xảy ra thử lại"+e));
+	}
+	    }
+	    @PostMapping("postProduct")
+	    public ResponseEntity<?> postProduct(@RequestBody ProductAdminDTO productdto){
+	    try {
+	    	Product product=modelMapper.map(productdto, Product.class);
+	    	product.setImage(image);
+	    	image="";
+	    	productRepository.save(product);
+			
+	    	return ResponseEntity.ok().body("save Successfull");
+		} catch (Exception e) {
+			 return ResponseEntity.ok().body(new ApiResponse(false,"Có lỗi đã xảy ra thử lại"+e));
+		}
+	    	
+	    }
 }
