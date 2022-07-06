@@ -34,4 +34,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int countBySearch(String search);
 
     public void deleteById(Long id);
+
+    public Page<User> findAllByNameContainsOrAddressContainsOrEmailContainsOrGenderContainsOrPhoneContains(String name, String address, String email, String gender, String phone, Pageable pageable);
+    public int countByNameContainsOrAddressContainsOrEmailContainsOrGenderContainsOrPhoneContains(String name, String address, String email, String gender, String phone);
 }

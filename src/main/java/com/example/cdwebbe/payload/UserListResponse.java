@@ -16,6 +16,7 @@ public class UserListResponse {
      * Getter/setter
      * @return
      */
+
     public int getPage() {
         return page;
     }

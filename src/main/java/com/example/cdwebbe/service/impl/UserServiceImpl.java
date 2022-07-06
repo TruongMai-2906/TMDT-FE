@@ -59,20 +59,16 @@ public class UserServiceImpl implements UserService {
         userListResponse.setPage(pageable.getPageNumber()+1);
         userListResponse.setLimit(pageable.getPageSize());
 
-        List<User> userList = userRepository.findAllSearch(search, pageable).getContent();
-        userListResponse.setTotalUser(userRepository.countBySearch(search));
-        userListResponse.setTotalPage( (int) Math.ceil( (double) userListResponse.getTotalUser() / userListResponse.getLimit() )  );
-
+        List<User> userList = userRepository.findAllByNameContainsOrAddressContainsOrEmailContainsOrGenderContainsOrPhoneContains(search, search, search, search, search, pageable).getContent();
+        userListResponse.setTotalUser(userRepository.countByNameContainsOrAddressContainsOrEmailContainsOrGenderContainsOrPhoneContains(search, search, search, search, search));
+        userListResponse.setTotalPage( (int) Math.ceil( (double) userListResponse.getTotalUser() / userListResponse.getLimit() ) );
         userListResponse.setUserDTOList(userConverter.toDTO(userList));
         return userListResponse;
     }
 
     @Override
-    public void delete(Long[] ids) {
-        for (Long id: ids){
-            System.out.println("id: "+ id);
-            userRepository.deleteById(id);
-        }
+    public void delete(Long id) {
+        userRepository.deleteById(id);
     }
 
     @Override
