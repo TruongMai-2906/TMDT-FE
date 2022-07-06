@@ -67,13 +67,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Long id) {
+    public boolean delete(Long id) {
         userRepository.deleteById(id);
+        if(! userRepository.existsById(id)) return true;
+        return false;
     }
 
     @Override
     public UserDTO findById(Long id) {
         return userConverter.toDTO(userRepository.findOnedById(id));
+    }
+
+    @Override
+    public UserDTO setStatus(Long id, boolean status) {
+        User userEntity= userRepository.findOnedById(id);
+        userEntity.setStatus(status);
+        userRepository.save(userEntity);
+        return userConverter.toDTO(userEntity);
     }
 
 }

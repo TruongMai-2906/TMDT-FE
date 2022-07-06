@@ -4,13 +4,11 @@ import com.example.cdwebbe.model.exception.AppException;
 import com.example.cdwebbe.model.Role;
 import com.example.cdwebbe.model.RoleName;
 import com.example.cdwebbe.model.User;
-import com.example.cdwebbe.payload.ApiResponse;
-import com.example.cdwebbe.payload.JwtAuthenticationResponse;
-import com.example.cdwebbe.payload.LoginRequest;
-import com.example.cdwebbe.payload.SignUpRequest;
+import com.example.cdwebbe.payload.*;
 import com.example.cdwebbe.repository.RoleRepository;
 import com.example.cdwebbe.repository.UserRepository;
 import com.example.cdwebbe.security.JwtTokenProvider;
+import com.example.cdwebbe.security.UserPrincipal;
 import com.example.cdwebbe.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -67,7 +65,20 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
+        //Học thêm vô để làm chức năng setting status: Kiểm tra nếu user có status = false thì sẽ ko đăng nhập được
+        UserPrincipal userPrincipal = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findOnedById(userPrincipal.getId());
+        if ( user.isStatus() != true){
+            Response response = new Response();
+            response.setStatusCode(HttpStatus.BAD_REQUEST);
+            response.setMessage("Unsuccessful: Account in deactivated state !");
+            response.setData(null);
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
+        //End kiểm tra
+
         String jwt = tokenProvider.generateToken(authentication);
+
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
@@ -135,6 +146,8 @@ public class AuthController {
                 .orElseThrow(() -> new AppException("User Role not set."));
 
         user.setRoles(Collections.singleton(userRole));
+
+        user.setStatus(true);
 
         User result = userRepository.save(user);
 

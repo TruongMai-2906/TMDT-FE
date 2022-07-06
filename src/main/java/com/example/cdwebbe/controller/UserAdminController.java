@@ -46,7 +46,7 @@ public class UserAdminController {
         }
         userListResponse = userService.findByPageable(pageable);
         response.setStatusCode(HttpStatus.OK);
-        response.setMessage("Successful return list!");
+        response.setMessage("Successful user list return!");
         response.setData(userListResponse);
         return new ResponseEntity(response, HttpStatus.OK);
     }
@@ -63,9 +63,16 @@ public class UserAdminController {
     public ResponseEntity<?>  deleteUserList(
             @RequestParam(name="id", required = false) Long id
     ){
-        userService.delete(id);
-        return new ResponseEntity(new ApiResponse(true, "Successful delete user by "+id+" !"),
-                HttpStatus.OK);
+        Response response = new Response();
+        if (userService.delete(id)){
+            response.setStatusCode(HttpStatus.OK);
+            response.setMessage("Successful delete user by id: "+id+" !");
+            return new ResponseEntity(response, HttpStatus.OK);
+        }
+        response.setStatusCode(HttpStatus.BAD_REQUEST);
+        response.setMessage("Unsuccessful delete user by id: "+id+" !");
+        return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+
     }
 
     /**
@@ -80,9 +87,35 @@ public class UserAdminController {
     public ResponseEntity<UserDTO> getUserDetail(@PathVariable(name = "id", required = false) Long id){
         UserDTO userDTO=userService.findById(id);
         Response response = new Response();
-        response.setStatusCode(HttpStatus.OK);
-        response.setMessage("Successful get user details");
+        if (userDTO != null){
+            response.setStatusCode(HttpStatus.OK);
+            response.setMessage("Successful get user details");
+            response.setData(userDTO);
+            return new ResponseEntity(response, HttpStatus.OK);
+        }
+        response.setStatusCode(HttpStatus.BAD_REQUEST);
+        response.setMessage("Unsuccessful get user details");
         response.setData(userDTO);
-        return new ResponseEntity(response, HttpStatus.OK);
+        return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> settingStatus(
+            @PathVariable(name = "id", required = false) Long id,
+            @RequestBody UserDTO userDTO){
+
+        boolean status=userDTO.isStatus();
+        userDTO=userService.setStatus(id, status);
+        Response response = new Response();
+        if (userDTO.isStatus() == status){
+            response.setStatusCode(HttpStatus.OK);
+            response.setMessage("Successful setting status of user ");
+            response.setData(userDTO);
+            return new ResponseEntity(response, HttpStatus.OK);
+        }
+        response.setStatusCode(HttpStatus.BAD_REQUEST);
+        response.setMessage("Unsuccessful setting status of user ");
+        response.setData(userDTO);
+        return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
     }
 }

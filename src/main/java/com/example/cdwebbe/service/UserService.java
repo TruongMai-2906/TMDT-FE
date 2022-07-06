@@ -21,7 +21,7 @@ public interface UserService {
      * Xóa 1 user bằng id
      * @param id
      */
-    public void delete(Long id);
+    public boolean delete(Long id);
 
     /**
      *
@@ -36,4 +36,11 @@ public interface UserService {
      * @return
      */
     public UserListResponse findBySearch(String search, Pageable pageable);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    UserDTO setStatus(Long id, boolean status);
 }
