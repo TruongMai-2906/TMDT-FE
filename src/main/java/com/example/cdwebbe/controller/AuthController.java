@@ -23,9 +23,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.mail.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Properties;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -65,8 +71,48 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
+    public static void sendPlainTextEmail(String host, String port,
+                                   final String userName, final String password, String toAddress,
+                                   String subject, String message) throws AddressException,
+            MessagingException {
+
+        // sets SMTP server properties
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", port);
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+// *** BEGIN CHANGE
+        properties.put("mail.smtp.user", userName);
+
+        // creates a new session, no Authenticator (will connect() later)
+        Session session = Session.getDefaultInstance(properties);
+        session.setDebug(true);
+// *** END CHANGE
+
+        // creates a new e-mail message
+        Message msg = new MimeMessage(session);
+
+        msg.setFrom(new InternetAddress(userName));
+        InternetAddress[] toAddresses = { new InternetAddress(toAddress) };
+        msg.setRecipients(Message.RecipientType.TO, toAddresses);
+        msg.setSubject(subject);
+        msg.setSentDate(new Date());
+        // set plain text message
+        msg.setText(message);
+
+// *** BEGIN CHANGE
+        // sends the e-mail
+        Transport t = session.getTransport("smtp");
+        t.connect(userName, password);
+        t.sendMessage(msg, msg.getAllRecipients());
+        t.close();
+// *** END CHANGE
+
+    }
+
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) throws MessagingException {
         System.out.print("Đã chạy đc vô hàm signup");
         System.out.print(signUpRequest);
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -95,6 +141,9 @@ public class AuthController {
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/users/{username}")
                 .buildAndExpand(result.getUsername()).toUri();
+
+        //sendmail to welcome
+        sendPlainTextEmail("smtp.gmail.com", "587", "tmdt.test1234@gmail.com", "pbpxgmcvuzlydxbw", signUpRequest.getEmail(), "Register successfully", "Welcome to my website!!!");
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
