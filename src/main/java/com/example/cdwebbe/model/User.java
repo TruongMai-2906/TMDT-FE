@@ -63,11 +63,11 @@ public class User extends DateAudit {
     private Set<Role> roles = new HashSet<>();
 
     @JsonIgnore
-    @OneToOne (mappedBy = "user")
+    @OneToOne (mappedBy = "user", cascade = CascadeType.REMOVE)
     private Cart cart;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Order> order=new ArrayList<>();
 
     public User(Long id, String name, String username, String email, String password, @Nullable String gender, @Nullable String address, @Nullable String phone, Set<Role> roles) {
