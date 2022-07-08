@@ -4,10 +4,7 @@ import com.example.cdwebbe.model.Order;
 import com.example.cdwebbe.model.OrderDetail;
 import com.example.cdwebbe.model.Product;
 import com.example.cdwebbe.model.User;
-import com.example.cdwebbe.payload.ApiResponse;
-import com.example.cdwebbe.payload.EditOrderRequest;
-import com.example.cdwebbe.payload.OuputListOderAdmin;
-import com.example.cdwebbe.payload.ResponseOrderUser;
+import com.example.cdwebbe.payload.*;
 import com.example.cdwebbe.repository.OrderRepository;
 import com.example.cdwebbe.repository.UserRepository;
 import com.example.cdwebbe.security.CurrentUser;
@@ -36,8 +33,14 @@ public class OrderAdminController {
                 Sort sort = Sort.by("id").ascending();
                 Pageable pageable = PageRequest.of(pageIndex,1,sort);
                 List<Order> orders = orderRepository.findAll(pageable).getContent();
+                List<Order> ordersAll = orderRepository.findAll();
+                int totalPage= 1;
+                if (ordersAll.size()>12){
+                    totalPage=ordersAll.size()/12;
+                }
 
                 List<OuputListOderAdmin> ketqua = new ArrayList<>();
+
                 for(int i=0;i<orders.size();i++){
                     Order orderTemp = orders.get(i);
                     OuputListOderAdmin temp = new OuputListOderAdmin();
@@ -54,7 +57,9 @@ public class OrderAdminController {
 
 
                 }
-                return ResponseEntity.ok().body(ketqua);
+
+                GetListOrderAdmin getListOrderAdmin = new GetListOrderAdmin(ketqua,totalPage);
+                return ResponseEntity.ok().body(getListOrderAdmin);
             }catch (Exception e){
 
             }
