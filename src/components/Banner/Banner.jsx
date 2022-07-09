@@ -19,8 +19,8 @@ export default function Banner() {
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="text-bg">
-                                            <span>Computer And Laptop</span>
-                                            <h1>Accessories</h1>
+                                            <span>Secondhand Town</span>
+                                            <h1>Clothing Secondhand</h1>
                                             <p>
                                                 There are many variations of passages of Lorem Ipsum available, but the
                                                 majority have suffered alteration in some form, by injected humour, or{' '}
@@ -31,7 +31,7 @@ export default function Banner() {
                                     <div className="col-md-6">
                                         <div className="text_img">
                                             <figure>
-                                                <img src="images/pct.png" alt="#" />
+                                                <img  src="images/bannerW.png" alt="#" style={{width:"670px",height:"400px"}}/>
                                             </figure>
                                         </div>
                                     </div>
@@ -45,8 +45,8 @@ export default function Banner() {
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="text-bg">
-                                            <span>Computer And Laptop</span>
-                                            <h1>Accessories</h1>
+                                            <span>Secondhand Town</span>
+                                            <h1>Clothing Secondhand</h1>
                                             <p>
                                                 There are many variations of passages of Lorem Ipsum available, but the
                                                 majority have suffered alteration in some form, by injected humour, or{' '}
@@ -57,7 +57,7 @@ export default function Banner() {
                                     <div className="col-md-6">
                                         <div className="text_img">
                                             <figure>
-                                                <img src="images/pct.png" alt="#" />
+                                                 <img  src="images/bannerW2.png" alt="#" style={{width:"670px",height:"400px"}}/>
                                             </figure>
                                         </div>
                                     </div>
@@ -71,8 +71,8 @@ export default function Banner() {
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="text-bg">
-                                            <span>Computer And Laptop</span>
-                                            <h1>Accessories</h1>
+                                            <span>Secondhand Town</span>
+                                            <h1>Clothing Secondhand</h1>
                                             <p>
                                                 There are many variations of passages of Lorem Ipsum available, but the
                                                 majority have suffered alteration in some form, by injected humour, or{' '}
@@ -83,7 +83,7 @@ export default function Banner() {
                                     <div className="col-md-6">
                                         <div className="text_img">
                                             <figure>
-                                                <img src="images/pct.png" alt="#" />
+                                            <img  src="images/bannerW3.png" alt="#" style={{width:"670px",height:"400px"}}/>
                                             </figure>
                                         </div>
                                     </div>
@@ -97,8 +97,8 @@ export default function Banner() {
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="text-bg">
-                                            <span>Computer And Laptop</span>
-                                            <h1>Accessories</h1>
+                                            <span>Secondhand Town</span>
+                                            <h1>Clothing Secondhand</h1>
                                             <p>
                                                 There are many variations of passages of Lorem Ipsum available, but the
                                                 majority have suffered alteration in some form, by injected humour, or{' '}
@@ -109,7 +109,7 @@ export default function Banner() {
                                     <div className="col-md-6">
                                         <div className="text_img">
                                             <figure>
-                                                <img src="images/pct.png" alt="#" />
+                                            <img  src="images/bannerW4.png" alt="#" style={{width:"670px",height:"400px"}}/>
                                             </figure>
                                         </div>
                                     </div>
@@ -123,8 +123,8 @@ export default function Banner() {
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="text-bg">
-                                            <span>Computer And Laptop</span>
-                                            <h1>Accessories</h1>
+                                            <span>Secondhand Town</span>
+                                            <h1>Clothing Secondhand</h1>
                                             <p>
                                                 There are many variations of passages of Lorem Ipsum available, but the
                                                 majority have suffered alteration in some form, by injected humour, or{' '}
@@ -135,7 +135,7 @@ export default function Banner() {
                                     <div className="col-md-6">
                                         <div className="text_img">
                                             <figure>
-                                                <img src="images/pct.png" alt="#" />
+                                            <img  src="images/bannerW5.png" alt="#" style={{width:"670px",height:"400px"}}/>
                                             </figure>
                                         </div>
                                     </div>

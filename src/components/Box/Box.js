@@ -8,7 +8,7 @@ export default function Box() {
                     <div className="col-md-4">
                         <div className="box_text">
                             <i>
-                                <img src="images/thr.png" alt="#" />
+                                <img src="images/box1.png" alt="#" />
                             </i>
                             <h3>Giá thành</h3>
                             <p>
@@ -20,7 +20,7 @@ export default function Box() {
                     <div className="col-md-4">
                         <div className="box_text">
                             <i>
-                                <img src="images/thr1.png" alt="#" />
+                                <img src="images/box2.png" alt="#" />
                             </i>
                             <h3>Phục vụ</h3>
                             <p>
@@ -32,7 +32,7 @@ export default function Box() {
                     <div className="col-md-4">
                         <div className="box_text">
                             <i>
-                                <img src="images/thr2.png" alt="#" />
+                                <img src="images/box3.png" alt="#" />
                             </i>
                             <h3>Đổi trả</h3>
                             <p>

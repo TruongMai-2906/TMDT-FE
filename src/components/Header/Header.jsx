@@ -51,7 +51,7 @@ export default function Header() {
                             <div className="center-desk">
                                 <div className="logo">
                                     <Link to="/" className={mobile ? 'header-mobile__logo--hidden' : ''}>
-                                        <img src="images/logo.png" alt="#" />
+                                    <img src="images/logoday.png" style={{width:"90px",height:"90px"}} alt="#" />
                                     </Link>
                                 </div>
                             </div>
@@ -144,7 +144,7 @@ export default function Header() {
                     </div>
                 </div>
                 <Link to="/" className={mobile ? 'header-mobile__logo' : 'header-mobile__logo--disable'}>
-                    <img src="images/logo.png" alt="#" />
+                    <img src="images/logoday.png" style={{width:"90px",height:"90px"}} alt="#" />
                 </Link>
             </div>
         </div>
