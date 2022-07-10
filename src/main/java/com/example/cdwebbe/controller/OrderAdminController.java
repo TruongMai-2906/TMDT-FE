@@ -28,16 +28,19 @@ public class OrderAdminController {
     UserRepository userRepository;
 
     @GetMapping("/getAllListOrderUser")
-    public ResponseEntity<?> getAllOrderForAdmin(@CurrentUser UserPrincipal currentUser,@RequestParam(defaultValue ="1") int pageIndex) {
+    public ResponseEntity<?> getAllOrderForAdmin(@CurrentUser UserPrincipal currentUser,@RequestParam(defaultValue ="0") int pageIndex) {
             try{
                 Sort sort = Sort.by("id").ascending();
-                Pageable pageable = PageRequest.of(pageIndex,1,sort);
-                List<Order> orders = orderRepository.findAll(pageable).getContent();
                 List<Order> ordersAll = orderRepository.findAll();
                 int totalPage= 1;
+                int sizetrave = ordersAll.size();
                 if (ordersAll.size()>12){
                     totalPage=ordersAll.size()/12;
+                    sizetrave=12;
                 }
+
+                Pageable pageable = PageRequest.of(pageIndex,sizetrave);
+                List<Order> orders = orderRepository.findAll(pageable).getContent();
 
                 List<OuputListOderAdmin> ketqua = new ArrayList<>();
 
