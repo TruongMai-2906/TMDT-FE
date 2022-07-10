@@ -1,4 +1,4 @@
-import React from 'react';
+
 import Banner from '~/components/Banner/Banner';
 import Info from '~/components/Banner/Info';
 import Sale from '~/components/Banner/Sale';
@@ -7,7 +7,23 @@ import Contact from '~/components/Contact/Contact';
 import CustomerReview from '~/components/CustomerReview/CustomerReview';
 import Footer from '~/components/Footer/Footer';
 import Header from '~/components/Header/Header';
+import React, { useEffect, useState } from 'react';
+import { methodGet } from '~/Utils/Request';
 export default function Home() {
+
+    const [listHome,setListHome]=useState([]);
+    useEffect(() => {
+        const getdata = async () => {
+            const rs = await methodGet(`/product/listProductHome`).catch((e) => {
+                console.log('lỗi search');
+            });
+        
+            setListHome(rs.data)
+          
+        };
+        getdata();
+    }, []);
+    console.log(listHome)
     return (
         // <div className="App">
         <div>
@@ -37,78 +53,19 @@ export default function Home() {
                         <div className="col-md-12">
                             <div className="our_products">
                                 <div className="row">
-                                    <div className="col-md-4 margin_bottom1">
-                                        <div className="product_box">
-                                            <figure>
-                                                <img src="images/product1.png" alt="#" />
-                                            </figure>
-                                            <h3>Computer</h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 margin_bottom1">
-                                        <div className="product_box">
-                                            <figure>
-                                                <img src="images/product2.png" alt="#" />
-                                            </figure>
-                                            <h3>Laptop</h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 margin_bottom1">
-                                        <div className="product_box">
-                                            <figure>
-                                                <img src="images/product3.png" alt="#" />
-                                            </figure>
-                                            <h3>Tablet</h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 margin_bottom1">
-                                        <div className="product_box">
-                                            <figure>
-                                                <img src="images/product4.png" alt="#" />
-                                            </figure>
-                                            <h3>Speakers</h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 margin_bottom1">
-                                        <div className="product_box">
-                                            <figure>
-                                                <img src="images/product5.png" alt="#" />
-                                            </figure>
-                                            <h3>internet</h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4 margin_bottom1">
-                                        <div className="product_box">
-                                            <figure>
-                                                <img src="images/product6.png" alt="#" />
-                                            </figure>
-                                            <h3>Hardisk</h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <div className="product_box">
-                                            <figure>
-                                                <img src="images/product7.png" alt="#" />
-                                            </figure>
-                                            <h3>Rams</h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <div className="product_box">
-                                            <figure>
-                                                <img src="images/product8.png" alt="#" />
-                                            </figure>
-                                            <h3>Bettery</h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <div className="product_box">
-                                            <figure>
-                                                <img src="images/product9.png" alt="#" />
-                                            </figure>
-                                            <h3>Drive</h3>
-                                        </div>
-                                    </div>
+                                {
+                                    listHome.map((item,index)=>{
+                                        return   <div key={index} className="col-md-4">
+                                                    <div className="product_box">
+                                                        <figure>
+                                                            <img src={item.product.image} style={{width:"200px",height:"200px"}} alt="#" />
+                                                        </figure>
+                                                        <h3>{item.categoryName}</h3>
+                                                    </div>
+                                                </div>
+                                    })
+                                }
+                                  
                                     <div className="col-md-12">
                                         <a className="read_more" href="/#">
                                             Xem thêm
@@ -122,7 +79,7 @@ export default function Home() {
             </div>
             {/* <!-- end products --> */}
             {/* <!-- laptop  section --> */}
-            <Info title="Tưng bừng khai trương" img="images/pc.png" body="Giảm giá cực sốc" />
+            <Info title="Tưng bừng khai trương" img="images/bannerBottom.png" body="Giảm giá cực sốc" />
             {/* <!-- end laptop  section --> */}
             {/* <!-- customer --> */}
             <CustomerReview />

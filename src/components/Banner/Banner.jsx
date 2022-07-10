@@ -22,8 +22,7 @@ export default function Banner() {
                                             <span>Secondhand Town</span>
                                             <h1>Clothing Secondhand</h1>
                                             <p>
-                                                There are many variations of passages of Lorem Ipsum available, but the
-                                                majority have suffered alteration in some form, by injected humour, or{' '}
+                                            SecondhandTown hiện nay là kho đồ secondhand sỉ lớn nhất hiện nay với hơn 5 năm kinh nghiệm. Chúng tôi cung cấp hàng ngàn mặt hàng 2hand chất lượng được nhập khẩu trực tiếp từ nước ngoài với giá cực kì tốt. Hi vọng với bài viết này bạn đã có cái nhìn tổng quan về đồ secondhand cũng bỏ túi kiến thức tổng hợp vô cùng giá trị về những món đồ secondhand.
                                             </p>
                                             <Link to="/product">Shopping Now </Link> <Link to="/contact">Contact</Link>
                                         </div>
@@ -48,8 +47,7 @@ export default function Banner() {
                                             <span>Secondhand Town</span>
                                             <h1>Clothing Secondhand</h1>
                                             <p>
-                                                There are many variations of passages of Lorem Ipsum available, but the
-                                                majority have suffered alteration in some form, by injected humour, or{' '}
+                                            SecondhandTown hiện nay là kho đồ secondhand sỉ lớn nhất hiện nay với hơn 5 năm kinh nghiệm. Chúng tôi cung cấp hàng ngàn mặt hàng 2hand chất lượng được nhập khẩu trực tiếp từ nước ngoài với giá cực kì tốt. Hi vọng với bài viết này bạn đã có cái nhìn tổng quan về đồ secondhand cũng bỏ túi kiến thức tổng hợp vô cùng giá trị về những món đồ secondhand.
                                             </p>
                                             <Link to="/product">Shopping Now </Link> <Link to="/contact">Contact</Link>
                                         </div>
@@ -74,8 +72,7 @@ export default function Banner() {
                                             <span>Secondhand Town</span>
                                             <h1>Clothing Secondhand</h1>
                                             <p>
-                                                There are many variations of passages of Lorem Ipsum available, but the
-                                                majority have suffered alteration in some form, by injected humour, or{' '}
+                                            SecondhandTown hiện nay là kho đồ secondhand sỉ lớn nhất hiện nay với hơn 5 năm kinh nghiệm. Chúng tôi cung cấp hàng ngàn mặt hàng 2hand chất lượng được nhập khẩu trực tiếp từ nước ngoài với giá cực kì tốt. Hi vọng với bài viết này bạn đã có cái nhìn tổng quan về đồ secondhand cũng bỏ túi kiến thức tổng hợp vô cùng giá trị về những món đồ secondhand.
                                             </p>
                                             <Link to="/product">Shopping Now </Link> <Link to="/contact">Contact</Link>
                                         </div>
@@ -100,8 +97,7 @@ export default function Banner() {
                                             <span>Secondhand Town</span>
                                             <h1>Clothing Secondhand</h1>
                                             <p>
-                                                There are many variations of passages of Lorem Ipsum available, but the
-                                                majority have suffered alteration in some form, by injected humour, or{' '}
+                                            Secondhand Town hiện nay là kho đồ secondhand sỉ lớn nhất hiện nay với hơn 5 năm kinh nghiệm. Chúng tôi cung cấp hàng ngàn mặt hàng 2hand chất lượng được nhập khẩu trực tiếp từ nước ngoài với giá cực kì tốt. Hi vọng với bài viết này bạn đã có cái nhìn tổng quan về đồ secondhand cũng bỏ túi kiến thức tổng hợp vô cùng giá trị về những món đồ secondhand.
                                             </p>
                                             <Link to="/product">Shopping Now </Link> <Link to="/contact">Contact</Link>
                                         </div>
@@ -126,8 +122,7 @@ export default function Banner() {
                                             <span>Secondhand Town</span>
                                             <h1>Clothing Secondhand</h1>
                                             <p>
-                                                There are many variations of passages of Lorem Ipsum available, but the
-                                                majority have suffered alteration in some form, by injected humour, or{' '}
+                                            SecondhandTown hiện nay là kho đồ secondhand sỉ lớn nhất hiện nay với hơn 5 năm kinh nghiệm. Chúng tôi cung cấp hàng ngàn mặt hàng 2hand chất lượng được nhập khẩu trực tiếp từ nước ngoài với giá cực kì tốt. Hi vọng với bài viết này bạn đã có cái nhìn tổng quan về đồ secondhand cũng bỏ túi kiến thức tổng hợp vô cùng giá trị về những món đồ secondhand.
                                             </p>
                                             <Link to="/product">Shopping Now </Link> <Link to="/contact">Contact</Link>
                                         </div>
