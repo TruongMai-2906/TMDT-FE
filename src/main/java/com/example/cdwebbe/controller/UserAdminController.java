@@ -42,7 +42,6 @@ public class UserAdminController {
             response.setMessage("Successful search!");
             response.setData(userListResponse);
             return new ResponseEntity(response, HttpStatus.OK);
-
         }
         userListResponse = userService.findByPageable(pageable);
         response.setStatusCode(HttpStatus.OK);
