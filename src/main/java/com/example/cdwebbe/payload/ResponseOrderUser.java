@@ -11,11 +11,26 @@ public class ResponseOrderUser {
     private Long orderId;
     private Date timemua;
     List<OrderDetail> listoderDetail = new ArrayList<>();
-
+    private String status;
     public ResponseOrderUser(Long orderId, Date timemua, List<OrderDetail> listoderDetail) {
         this.orderId = orderId;
         this.timemua = timemua;
         this.listoderDetail = listoderDetail;
+    }
+
+    public ResponseOrderUser(Long orderId, Date timemua, List<OrderDetail> listoderDetail, String status) {
+        this.orderId = orderId;
+        this.timemua = timemua;
+        this.listoderDetail = listoderDetail;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public ResponseOrderUser(Date timemua, List<OrderDetail> listoderDetail) {

@@ -16,7 +16,7 @@ public class OrderDetail {
     private int quantity;
 
     private double totalPrice;
-    private boolean status;
+    private String status;
 
 
     @ManyToOne
@@ -31,18 +31,7 @@ public class OrderDetail {
     private Order order;
 
 
-	public OrderDetail(Long id,  int quantity,  double totalPrice, Product product, Order order) {
-		super();
-		this.id = id;
-		this.quantity = quantity;
-		this.totalPrice = totalPrice;
-		this.product = product;
-		this.order = order;
-	}
-
-
-	public OrderDetail(Long id, int quantity, double totalPrice, boolean status, Product product, Order order) {
-		super();
+	public OrderDetail(Long id, int quantity, double totalPrice, String status, Product product, Order order) {
 		this.id = id;
 		this.quantity = quantity;
 		this.totalPrice = totalPrice;
@@ -50,7 +39,6 @@ public class OrderDetail {
 		this.product = product;
 		this.order = order;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -106,15 +94,11 @@ public class OrderDetail {
 		super();
 	}
 
-
-	public boolean isStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-    
 }

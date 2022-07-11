@@ -7,9 +7,11 @@ import com.example.cdwebbe.model.User;
 import com.example.cdwebbe.payload.*;
 import com.example.cdwebbe.repository.RoleRepository;
 import com.example.cdwebbe.repository.UserRepository;
+import com.example.cdwebbe.security.CurrentUser;
 import com.example.cdwebbe.security.JwtTokenProvider;
 import com.example.cdwebbe.security.UserPrincipal;
 import com.example.cdwebbe.service.UserService;
+import com.google.common.primitives.Chars;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +29,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.validation.Valid;
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -220,5 +224,34 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).body("Delete user success");
     }
 
+    @GetMapping("/forgotpassword/{email}")
+    public ResponseEntity<?> forgotPassword(@PathVariable("email") String email){
+        try{
+            String characters="ABCDEFGHIKLMNOZXCV";
+            Random rand = new Random();
+            char[] text = new char[5];
+            for (int i = 0; i < 5; i++)
+            {
+                text[i] = characters.charAt(rand.nextInt(characters.length()));
+            }
+            String chuoi = text.toString();
+            int ranNum = rand.nextInt(1000000)+1;
+            String generatedString=String.valueOf(ranNum)+chuoi;
+            User user = userRepository.findByEmail(email).get();
+            if(user==null){
+                return ResponseEntity.ok().body(new ApiResponse(false,"Không tồn tại email này"));
+            }
+
+            user.setPassword(passwordEncoder.encode(generatedString));
+            userRepository.save(user);
+            sendPlainTextEmail("smtp.gmail.com", "587", "tmdt.test1234@gmail.com", "pbpxgmcvuzlydxbw", email, "Recovery PassWord SecondHand Town ", "Mã mật khẩu mới của bạn đã được kích hoạt ! Vui lòng sử dụng mật khẩu mới này để đăng nhập "+generatedString);
+            return ResponseEntity.ok().body(new ApiResponse(true,"Quên mật khẩu thành công , vui lòng check mail"));
+
+
+        }catch (Exception e){
+            return  ResponseEntity.ok().body(new ApiResponse(false,"Quên mật khẩu thất bại"+e));
+        }
+
+    }
 
 }

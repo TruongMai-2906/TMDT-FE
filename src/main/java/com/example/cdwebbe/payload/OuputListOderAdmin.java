@@ -1,32 +1,40 @@
 package com.example.cdwebbe.payload;
 
 public class OuputListOderAdmin {
-    public int id ;
+    public Long id ;
     public String address;
-    public String date;
+    public String datecreated;
     public String phone_number;
     public double shipfee;
     public double total_price_order;
     public String userid;
-
+    public String status;
     public OuputListOderAdmin() {
     }
 
-    public OuputListOderAdmin(int id, String address, String date, String phone_number, double shipfee, double total_price_order, String userid) {
+    public OuputListOderAdmin(Long id, String address, String date, String phone_number, double shipfee, double total_price_order, String userid) {
         this.id = id;
         this.address = address;
-        this.date = date;
+        this.datecreated = date;
         this.phone_number = phone_number;
         this.shipfee = shipfee;
         this.total_price_order = total_price_order;
         this.userid = userid;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -38,12 +46,12 @@ public class OuputListOderAdmin {
         this.address = address;
     }
 
-    public String getDate() {
-        return date;
+    public String getDatecreated() {
+        return datecreated;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDatecreated(String datecreated) {
+        this.datecreated = datecreated;
     }
 
     public String getPhone_number() {

@@ -4,11 +4,9 @@ import com.example.cdwebbe.model.Order;
 import com.example.cdwebbe.model.OrderDetail;
 import com.example.cdwebbe.model.Product;
 import com.example.cdwebbe.model.User;
-import com.example.cdwebbe.payload.ApiResponse;
-import com.example.cdwebbe.payload.EditOrderRequest;
-import com.example.cdwebbe.payload.OuputListOderAdmin;
-import com.example.cdwebbe.payload.ResponseOrderUser;
+import com.example.cdwebbe.payload.*;
 import com.example.cdwebbe.repository.OrderRepository;
+import com.example.cdwebbe.repository.UserRepository;
 import com.example.cdwebbe.security.CurrentUser;
 import com.example.cdwebbe.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +24,45 @@ import java.util.List;
 public class OrderAdminController {
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping("/getAllListOrderUser")
-    public ResponseEntity<?> getAllOrderForAdmin(@CurrentUser UserPrincipal currentUser,@RequestParam(defaultValue ="1") int pageIndex) {
+    public ResponseEntity<?> getAllOrderForAdmin(@CurrentUser UserPrincipal currentUser,@RequestParam(defaultValue ="0") int pageIndex) {
             try{
                 Sort sort = Sort.by("id").ascending();
-                Pageable pageable = PageRequest.of(pageIndex,1,sort);
-                List<Order> orders = orderRepository.findAll(pageable).getContent();
-                OuputListOderAdmin outputListOderAdmin = new OuputListOderAdmin();
+                List<Order> ordersAll = orderRepository.findAll();
+                int totalPage= 1;
+                int sizetrave = ordersAll.size();
+                if (ordersAll.size()>12){
+                    totalPage=ordersAll.size()/12;
+                    sizetrave=12;
+                }
 
-                return ResponseEntity.ok().body(orders);
+                Pageable pageable = PageRequest.of(pageIndex,sizetrave);
+                List<Order> orders = orderRepository.findAll(pageable).getContent();
+
+                List<OuputListOderAdmin> ketqua = new ArrayList<>();
+
+                for(int i=0;i<orders.size();i++){
+                    Order orderTemp = orders.get(i);
+                    OuputListOderAdmin temp = new OuputListOderAdmin();
+                    temp.setId(orderTemp.getId());
+                    temp.setAddress(orderTemp.getAddress());
+                    temp.setShipfee(orderTemp.getShipfee());
+                    temp.setDatecreated(orderTemp.getDateCreate().toString());
+                    temp.setPhone_number(orderTemp.getPhoneNumber());
+                    temp.setTotal_price_order(orderTemp.getTotalPriceOrder());
+                    temp.setUserid(orderTemp.getUser().getUsername());
+                    temp.setStatus(orderTemp.getStatus());
+                    ketqua.add(temp);
+//                    User user =userRepository.find
+
+
+                }
+
+                GetListOrderAdmin getListOrderAdmin = new GetListOrderAdmin(ketqua,totalPage);
+                return ResponseEntity.ok().body(getListOrderAdmin);
             }catch (Exception e){
 
             }

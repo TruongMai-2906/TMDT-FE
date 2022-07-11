@@ -14,11 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.cdwebbe.DTO.OrderDTO;
 import com.example.cdwebbe.config.ModelMapperConfig;
@@ -92,6 +88,7 @@ public class OrderController {
 			User userEntity = this.userRepository.findById(currentUser.getId()).get();
 			order.setUser(userEntity);
 			order.setDateCreate(new Date());
+			order.setStatus("Đang giao");
 			order.setAddress(changeToOrderRequest.getAddress());
 			order.setPhoneNumber(changeToOrderRequest.getPhoneNumber());
 			orderRepository.save(order);
@@ -107,7 +104,7 @@ public class OrderController {
 					CartItem cartItemEntity = handleQuantityAndTotalPriceProduct(userEntity, product);
 					orderDetail.setTotalPrice(cartItemEntity.getTotalPrice());
 					orderDetail.setQuantity(cartItemEntity.getQuantity());
-					orderDetail.setStatus(false);
+					orderDetail.setStatus("Đang giao");
 					orderDetailRepository.save(orderDetail);
 
 				}
@@ -156,7 +153,7 @@ public class OrderController {
 				CartItem cartItemEntity = handleQuantityAndTotalPriceProduct(userEntity, product);
 				orderDetail.setTotalPrice(cartItemEntity.getTotalPrice());
 				orderDetail.setQuantity(cartItemEntity.getQuantity());
-				orderDetail.setStatus(false);
+				orderDetail.setStatus("Đang giao");
 				orderDetailRepository.save(orderDetail);
 
 			} else {
@@ -173,7 +170,25 @@ public class OrderController {
 
 	}
 
+	@GetMapping("/cancel/{id}")
+	public ResponseEntity<?> DeleteOder(@CurrentUser UserPrincipal currentUser,@PathVariable("id") Long idoder) {
+		try{
 
+
+			Order order = orderRepository.findByUserIdAndId(currentUser.getId(),idoder);
+
+			if(order==null){
+				return ResponseEntity.ok().body(new ApiResponse(false,"Hủy"));
+		}
+			orderRepository.deleteByUserIdAndId(currentUser.getId(),idoder);
+
+			return ResponseEntity.ok().body(new ApiResponse(true,"Hủy đơn hàng thành công"));
+		}catch (Exception e){
+			return ResponseEntity.ok().body(new ApiResponse(false,"Hủythất bại"+e.toString()));
+		}
+
+
+	}
 	private CartItem handleQuantityAndTotalPriceProduct(User userEntity, Product product) {
 		Cart cart = cartRepository.findByUser(userEntity);
 		CartItem cartItemEntity = cartItemRepository.findByCartAndProduct(cart, product);
@@ -192,7 +207,7 @@ public class OrderController {
 		 List<ResponseOrderUser> responseList= new ArrayList<>();
 		 for (Order order : orders) {
 			 List<OrderDetail> orderDetailList = orderDetailRepository.findAllByOrderId(order.getId());
-			 ResponseOrderUser responseOrderUser = new ResponseOrderUser(order.getId(),order.getDateCreate(),orderDetailList);
+			 ResponseOrderUser responseOrderUser = new ResponseOrderUser(order.getId(),order.getDateCreate(),orderDetailList,order.getStatus());
 			 responseList.add(responseOrderUser);
 
 		}

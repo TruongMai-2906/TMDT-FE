@@ -57,5 +57,4 @@ public User updateUser(@CurrentUser UserPrincipal currentUser, @RequestBody User
     return null;
 }
 
-
 }

@@ -38,7 +38,7 @@ public class ProductAdminController {
 	    ModelMapper modelMapper;
 	    
 	    @GetMapping("listProducts")
-	    public ResponseEntity<?> getListProductAdmin(@RequestParam(defaultValue = "0") int pageIndex,
+	    public ResponseEntity<?> getListProductAdmin(@RequestParam(defaultValue = "1") int pageIndex,
 	    		@RequestParam(defaultValue = "12") int pageSize,@RequestParam(required = false) List<String> sortBy){
 	    	try {
 	    		Pageable pageable = PageRequest.of(pageIndex, pageSize);
