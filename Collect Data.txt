@@ -1,4 +1,26 @@
-
+INSERT INTO `orders` (`id`, `address`, `date_create`, `date_delivery`, `phone_number`, `shipfee`, `total_price_order`, `userid`, `user_id`, `status`) VALUES
+(33, 'ktx khu b-hcm-VietNam', '2022-07-10', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
+(34, 'ktx khu b-hcm-VietNam', '2022-07-09', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
+(35, 'ktx khu b-hcm-VietNam', '2022-07-09', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
+(36, 'ktx khu b-hcm-VietNam', '2022-07-08', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
+(37, 'ktx khu b-hcm-VietNam', '2022-07-08', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
+(38, 'ktx khu b-hcm-VietNam', '2022-07-07', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
+(39, 'ktx khu b-hcm-VietNam', '2022-07-06', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
+(39, 'ktx khu b-hcm-VietNam', '2022-07-06', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
+(40, 'ktx khu b-hcm-VietNam', '2022-07-06', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
+(41, 'ktx khu b-hcm-VietNam', '2022-07-04', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
+(39, 'ktx khu b-hcm-VietNam', '2022-07-04', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
+(40, 'ktx khu b-hcm-VietNam', '2022-07-04', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
+(41, 'ktx khu b-hcm-VietNam', '2022-07-02', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
+(39, 'ktx khu b-hcm-VietNam', '2022-07-02', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
+(40, 'ktx khu b-hcm-VietNam', '2022-07-01', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
+(41, 'ktx khu b-hcm-VietNam', '2022-07-01', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
+(39, 'ktx khu b-hcm-VietNam', '2022-07-01', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
+(40, 'ktx khu b-hcm-VietNam', '2022-06-30', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
+(41, 'ktx khu b-hcm-VietNam', '2022-06-30', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
+(39, 'ktx khu b-hcm-VietNam', '2022-06-29', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
+(40, 'ktx khu b-hcm-VietNam', '2022-06-27', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
+(41, 'ktx khu b-hcm-VietNam', '2022-06-27', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
 
 
 + Áo nữ1        hiệp 
