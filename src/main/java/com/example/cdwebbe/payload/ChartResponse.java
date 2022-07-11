@@ -7,7 +7,16 @@ public class ChartResponse {
     private List<String > labelList = new ArrayList<>();
     private List<Integer> amountOrder= new ArrayList<>();
     private List<Double> netRevenue= new ArrayList<>();
+    private List<String> backgroudColor= new ArrayList<>();
     private String time;
+
+    public List<String> getBackgroudColor() {
+        return backgroudColor;
+    }
+
+    public void setBackgroudColor(List<String> backgroudColor) {
+        this.backgroudColor = backgroudColor;
+    }
 
     public List<String> getLabelList() {
         return labelList;

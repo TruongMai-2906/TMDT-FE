@@ -7,6 +7,7 @@ import com.example.cdwebbe.model.Product;
 import com.example.cdwebbe.payload.ChartResponse;
 import com.example.cdwebbe.payload.Response;
 import com.example.cdwebbe.repository.CategoryRepository;
+import com.example.cdwebbe.repository.OrderDetailRepository;
 import com.example.cdwebbe.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/admin/chart")
@@ -27,6 +25,8 @@ public class ChartAdminController {
     OrderRepository orderRepository;
     @Autowired
     CategoryRepository categoryRepository;
+    @Autowired
+    OrderDetailRepository orderDetailRepository;
 
     /**
      * Today:       Jul 11 - Jul 11, 2022;
@@ -219,30 +219,63 @@ public class ChartAdminController {
      * 1. Tính được tổng doanh thu >
      * @param time
      * @return
+     * backgroudColor (màu #)
+     * #--
      */
     @GetMapping ("/percent-revenue")
     public ResponseEntity<?> getPercentRevenue(@RequestParam(name= "time", required = false, defaultValue = "tatca") String time){
-        List<String> title=new ArrayList<>();
-        List<Double> percent=new ArrayList<>();
+        List<String> labelList=new ArrayList<>();
+        List<Double> netRevenue=new ArrayList<>();
+        List<String> backgroudColor=new ArrayList<>();
+        String [] color =   {"#FFBF00", "#F5F5DC", "#9966CC", "#3D2B1F", "#7FFFD4", "#000000", "#007FFF",
+                            "#0000FF", "#964B00", "#F0DC82", "#CC5500", "#C41E3A", "#960018","#ACE1AF","#DE3163", "#7FFF00" };
 
-        //Lấy danh sách các category ?
+        //Lấy danh sách các category trong database?
         List<Category> categoryList=new ArrayList<>();
         categoryList = categoryRepository.findAll();
-        //Lấy sản phẩm theo category đó?
 
-        //Tổng doanh thu
+        //Tổng doanh thu tất cả đơn hàng
         double totalRevenue = 0;
         List<Order> orderList = new ArrayList<>();
-        Product[] productList;
-//        orderList= orderRepository.findAll();
+        orderList= orderRepository.findAll();
         for (Order order : orderList){
-            totalRevenue += order.getTotalPriceOrder();
             for (OrderDetail orderDetail: order.getOrderDetailList()){
+                totalRevenue +=orderDetail.getTotalPrice();
             }
-
         }
 
-        return null;
+        System.out.println("Tổng tất cả doanh thu của tất cả :"+totalRevenue );
+        double totalRevenueByCategory=0;
+
+        //Tổng daonh thu theo category;
+        int count=0;
+        for (Category category: categoryList){
+            for (OrderDetail orderDetail: orderDetailRepository.findAllByProductCategory(category)){
+                totalRevenueByCategory += orderDetail.getTotalPrice();
+            }
+            System.out.println("Tổng tất cả doanh thu của "+category.getKeywork()+" :"+totalRevenueByCategory );
+            if (totalRevenueByCategory !=0){
+                labelList.add(category.getKeywork());
+                System.out.println("Category có trong order:" + category.getKeywork());
+                System.out.println("Chưa chia 100: "+((double)totalRevenueByCategory/totalRevenue ) );
+                netRevenue.add( ( (double)totalRevenueByCategory/totalRevenue )*100 );
+                totalRevenueByCategory =0;
+                backgroudColor.add(color[count++]);
+            }
+        }
+
+        ChartResponse chartResponse =new ChartResponse();
+        chartResponse.setTime(time);
+        chartResponse.setLabelList(labelList);
+        chartResponse.setNetRevenue(netRevenue);
+        chartResponse.setBackgroudColor(backgroudColor);
+
+        Response response=new Response();
+        response.setStatusCode(HttpStatus.OK);
+        response.setMessage("Successfully submitted data percent net revenue!");
+        response.setData(chartResponse);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

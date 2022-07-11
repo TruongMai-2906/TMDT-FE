@@ -1,26 +1,56 @@
-INSERT INTO `orders` (`id`, `address`, `date_create`, `date_delivery`, `phone_number`, `shipfee`, `total_price_order`, `userid`, `user_id`, `status`) VALUES
-(33, 'ktx khu b-hcm-VietNam', '2022-07-10', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
-(34, 'ktx khu b-hcm-VietNam', '2022-07-09', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
-(35, 'ktx khu b-hcm-VietNam', '2022-07-09', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
-(36, 'ktx khu b-hcm-VietNam', '2022-07-08', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
-(37, 'ktx khu b-hcm-VietNam', '2022-07-08', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
-(38, 'ktx khu b-hcm-VietNam', '2022-07-07', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
-(39, 'ktx khu b-hcm-VietNam', '2022-07-06', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
-(39, 'ktx khu b-hcm-VietNam', '2022-07-06', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
-(40, 'ktx khu b-hcm-VietNam', '2022-07-06', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
-(41, 'ktx khu b-hcm-VietNam', '2022-07-04', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
-(39, 'ktx khu b-hcm-VietNam', '2022-07-04', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
-(40, 'ktx khu b-hcm-VietNam', '2022-07-04', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
-(41, 'ktx khu b-hcm-VietNam', '2022-07-02', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
-(39, 'ktx khu b-hcm-VietNam', '2022-07-02', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
-(40, 'ktx khu b-hcm-VietNam', '2022-07-01', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
-(41, 'ktx khu b-hcm-VietNam', '2022-07-01', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
-(39, 'ktx khu b-hcm-VietNam', '2022-07-01', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
-(40, 'ktx khu b-hcm-VietNam', '2022-06-30', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
-(41, 'ktx khu b-hcm-VietNam', '2022-06-30', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
-(39, 'ktx khu b-hcm-VietNam', '2022-06-29', NULL, '0397619750', 30000, 543000, 3, NULL, 'Đang giao'),
-(40, 'ktx khu b-hcm-VietNam', '2022-06-27', NULL, '0397619750', 30000, 1200000, 3, NULL, 'Đang giao'),
-(41, 'ktx khu b-hcm-VietNam', '2022-06-27', NULL, '0397619750', 30000, 404000, 3, NULL, 'Đang giao');
+INSERT INTO `orders` VALUES (39, 'ktx khu b-hcm-VietNam', '2022-07-10', NULL, '0397619750', 30000, 543000, 2, 'Đang giao');
+INSERT INTO `orders` VALUES (40, 'ktx khu b-hcm-VietNam', '2022-07-10', NULL, '0397619750', 30000, 1200000, 8, 'Đang giao');
+INSERT INTO `orders` VALUES (41, 'ktx khu b-hcm-VietNam', '2022-07-10', NULL, '0397619750', 30000, 404000, 14, 'Đang giao');
+INSERT INTO `orders` VALUES (42, 'bến cát bình dương-thủ dầu một-VietNam', '2022-07-11', NULL, '62225324142', 30000, 1563000, 15, 'Đang giao');
+INSERT INTO `orders` VALUES (43, 'long thành dầu giây-đồng nai-VietNam', '2022-07-11', NULL, '3523323243', 30000, 404000, 16, 'Đang giao');
+INSERT INTO `orders` VALUES (44, 'móng cái -quảng ninh-VietNam', '2022-07-11', NULL, '093525325', 30000, 380000, 17, 'Đang giao');
+INSERT INTO `orders` VALUES (45, 'quy nhơn-bình định-VietNam', '2022-07-11', NULL, '3592352325', 30000, 280000, 2, 'Đang giao');
+INSERT INTO `orders` VALUES (46, 'ấp 69 tân phú-thủ đức-VietNam', '2022-07-11', NULL, '5565235246', 30000, 160000, 8, 'Đang giao');
+INSERT INTO `orders` VALUES (47, 'ap 69 , thi xa tan phu-trang bom-VietNam', '2022-07-11', NULL, '6252532532', 30000, 1200000, 14, 'Đang giao');
+INSERT INTO `orders` VALUES (48, '35 binh thanh-tp hcm-VietNam', '2022-07-11', NULL, '4625235321', 30000, 270000, 15, 'Đang giao');
+INSERT INTO `orders` VALUES (49, '12  hẻm 35 tân lập-tp móng cái quảng ninh-VietNam', '2022-07-11', NULL, '6235352523', 30000, 143000, 16, 'Đang giao');
+INSERT INTO `orders` VALUES (50, 'tổ 12 ấp long đức 3-đồng nai-VietNam', '2022-07-11', NULL, '0652426452', 30000, 415000, 17, 'Đang giao');
+INSERT INTO `orders` VALUES (51, 'bò sửa long thành-tp biên hòa-VietNam', '2022-07-11', NULL, '63525325326', 30000, 1200000, 2, 'Đang giao');
+INSERT INTO `orders` VALUES (52, 'xã tân thạnh phu-hóc môn hcm-VietNam', '2022-07-11', NULL, '4523532532', 30000, 298000, 8, 'Đang giao');
+INSERT INTO `orders` VALUES (53, 'tân phú đông-bình thạnh-VietNam', '2022-07-11', NULL, '4323523532', 30000, 200000, 14, 'Đang giao');
+INSERT INTO `orders` VALUES (54, 'bình thạnh đông-quận 1 hcm-VietNam', '2022-07-11', NULL, '5235325325', 30000, 270000, 15, 'Đang giao');
+INSERT INTO `orders` VALUES (55, '36 đồng hới-tp phan thiết-VietNam', '2022-07-11', NULL, '4524324643', 30000, 996000, 16, 'Đang giao');
+INSERT INTO `orders` VALUES (56, 'bụi mít 32 , ngõ 224 , bình thạnh-hcm-VietNam', '2022-07-11', NULL, '6252353533', 30000, 400000, 17, 'Đang giao');
+INSERT INTO `orders` VALUES (57, '69 , ngỗ 11 , sông sài gòn-tp hcm-VietNam', '2022-07-11', NULL, '6253252353', 30000, 170000, 2, 'Đang giao');
+
+INSERT INTO `order_detail` VALUES (9, 1, '', 390000, 39, 41);
+INSERT INTO `order_detail` VALUES (10, 1, '', 153000, 39, 42);
+INSERT INTO `order_detail` VALUES (11, 1, '', 550000, 40, 121);
+INSERT INTO `order_detail` VALUES (12, 1, '', 650000, 40, 122);
+INSERT INTO `order_detail` VALUES (13, 1, '', 225000, 41, 31);
+INSERT INTO `order_detail` VALUES (14, 1, '', 179000, 41, 32);
+INSERT INTO `order_detail` VALUES (15, 3, '', 1020000, 42, 1);
+INSERT INTO `order_detail` VALUES (16, 1, '', 390000, 42, 41);
+INSERT INTO `order_detail` VALUES (17, 1, '', 153000, 42, 42);
+INSERT INTO `order_detail` VALUES (18, 1, '', 225000, 43, 31);
+INSERT INTO `order_detail` VALUES (19, 1, '', 179000, 43, 32);
+INSERT INTO `order_detail` VALUES (20, 1, '', 135000, 44, 48);
+INSERT INTO `order_detail` VALUES (21, 1, '', 245000, 44, 49);
+INSERT INTO `order_detail` VALUES (22, 1, '', 280000, 45, 5);
+INSERT INTO `order_detail` VALUES (23, 1, '', 95000, 46, 9);
+INSERT INTO `order_detail` VALUES (24, 1, '', 65000, 46, 13);
+INSERT INTO `order_detail` VALUES (25, 1, '', 550000, 47, 121);
+INSERT INTO `order_detail` VALUES (26, 1, '', 650000, 47, 122);
+INSERT INTO `order_detail` VALUES (27, 1, '', 270000, 48, 4);
+INSERT INTO `order_detail` VALUES (28, 1, '', 143000, 49, 61);
+INSERT INTO `order_detail` VALUES (29, 1, '', 280000, 50, 5);
+INSERT INTO `order_detail` VALUES (30, 1, '', 135000, 50, 48);
+INSERT INTO `order_detail` VALUES (31, 1, '', 750000, 51, 123);
+INSERT INTO `order_detail` VALUES (32, 1, '', 450000, 51, 126);
+INSERT INTO `order_detail` VALUES (33, 1, '', 163000, 52, 52);
+INSERT INTO `order_detail` VALUES (34, 1, '', 135000, 52, 51);
+INSERT INTO `order_detail` VALUES (35, 1, '', 65000, 53, 13);
+INSERT INTO `order_detail` VALUES (36, 1, '', 135000, 53, 14);
+INSERT INTO `order_detail` VALUES (37, 1, '', 270000, 54, 4);
+INSERT INTO `order_detail` VALUES (38, 1, '', 642000, 55, 62);
+INSERT INTO `order_detail` VALUES (39, 1, '', 354000, 55, 63);
+INSERT INTO `order_detail` VALUES (40, 2, '', 400000, 56, 6);
+INSERT INTO `order_detail` VALUES (41, 1, '', 170000, 57, 1);
 
 
 + Áo nữ1        hiệp 
