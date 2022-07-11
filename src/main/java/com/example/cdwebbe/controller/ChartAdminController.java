@@ -1,8 +1,12 @@
 package com.example.cdwebbe.controller;
 
+import com.example.cdwebbe.model.Category;
 import com.example.cdwebbe.model.Order;
+import com.example.cdwebbe.model.OrderDetail;
+import com.example.cdwebbe.model.Product;
 import com.example.cdwebbe.payload.ChartResponse;
 import com.example.cdwebbe.payload.Response;
+import com.example.cdwebbe.repository.CategoryRepository;
 import com.example.cdwebbe.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +25,8 @@ import java.util.List;
 public class ChartAdminController {
     @Autowired
     OrderRepository orderRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
 
     /**
      * Today:       Jul 11 - Jul 11, 2022;
@@ -97,11 +103,11 @@ public class ChartAdminController {
         } else if (time.equals("week")){
             SimpleDateFormat format= new SimpleDateFormat("dd");
             for (int i=1; i <=7; i++){
-                dateStart = calendar.getTime();
+                dateEnd = calendar.getTime();
                 System.out.println("dateStart"+calendar.getTime());
                 calendar.add(Calendar.DAY_OF_WEEK, -1);
                 System.out.println("dateEnd"+calendar.getTime());
-                dateEnd = calendar.getTime();
+                dateStart = calendar.getTime();
 
                 // Lấy các order between dateStart and dateEnd
                 orderList = orderRepository.findAllByDateCreateBetween(dateStart, dateEnd);
@@ -123,9 +129,9 @@ public class ChartAdminController {
         } else if (time.equals("month")){
             SimpleDateFormat format= new SimpleDateFormat("dd");
             for (int i=1; i <=30; i++){
-                dateStart = calendar.getTime();
-                calendar.add(Calendar.DAY_OF_MONTH, -1);
                 dateEnd = calendar.getTime();
+                calendar.add(Calendar.DAY_OF_MONTH, -1);
+                dateStart = calendar.getTime();
 
                 // Lấy các order between dateStart and dateEnd
                 orderList = orderRepository.findAllByDateCreateBetween(dateStart, dateEnd);
@@ -148,9 +154,9 @@ public class ChartAdminController {
             SimpleDateFormat format= new SimpleDateFormat("dd");
             calendar.add(Calendar.MONTH, -1);
             for (int i=1; i <=30; i++){
-                dateStart = calendar.getTime();
-                calendar.add(Calendar.DAY_OF_MONTH, -1);
                 dateEnd = calendar.getTime();
+                calendar.add(Calendar.DAY_OF_MONTH, -1);
+                dateStart = calendar.getTime();
 
                 // Lấy các order between dateStart and dateEnd
                 orderList = orderRepository.findAllByDateCreateBetween(dateStart, dateEnd);
@@ -172,9 +178,9 @@ public class ChartAdminController {
         } else if (time.equals("last-year")){
             SimpleDateFormat format= new SimpleDateFormat("MM");
             for (int i=1; i <=12; i++){
-                dateStart = calendar.getTime();
-                calendar.add(Calendar.MONTH, -1);
                 dateEnd = calendar.getTime();
+                calendar.add(Calendar.MONTH, -1);
+                dateStart = calendar.getTime();
 
                 // Lấy các order between dateStart and dateEnd
                 orderList = orderRepository.findAllByDateCreateBetween(dateStart, dateEnd);
@@ -209,8 +215,33 @@ public class ChartAdminController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping ("/total-revenue")
-    public ResponseEntity<?> getTotalRevenue(){
+    /**
+     * 1. Tính được tổng doanh thu >
+     * @param time
+     * @return
+     */
+    @GetMapping ("/percent-revenue")
+    public ResponseEntity<?> getPercentRevenue(@RequestParam(name= "time", required = false, defaultValue = "tatca") String time){
+        List<String> title=new ArrayList<>();
+        List<Double> percent=new ArrayList<>();
+
+        //Lấy danh sách các category ?
+        List<Category> categoryList=new ArrayList<>();
+        categoryList = categoryRepository.findAll();
+        //Lấy sản phẩm theo category đó?
+
+        //Tổng doanh thu
+        double totalRevenue = 0;
+        List<Order> orderList = new ArrayList<>();
+        Product[] productList;
+//        orderList= orderRepository.findAll();
+        for (Order order : orderList){
+            totalRevenue += order.getTotalPriceOrder();
+            for (OrderDetail orderDetail: order.getOrderDetailList()){
+            }
+
+        }
+
         return null;
     }
 
