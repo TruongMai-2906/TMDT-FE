@@ -94,7 +94,7 @@ public class ChartAdminController {
                 labelList.add(format.format(calendar.getTime()));
                 calendar.add(Calendar.HOUR_OF_DAY, -7);
             }
-        } else if (time.equals("Last 7 days")){
+        } else if (time.equals("week")){
             SimpleDateFormat format= new SimpleDateFormat("dd");
             for (int i=1; i <=7; i++){
                 dateStart = calendar.getTime();
@@ -120,7 +120,7 @@ public class ChartAdminController {
                 labelList.add(format.format(calendar.getTime()));
                 calendar.add(Calendar.HOUR_OF_DAY, -7);
             }
-        } else if (time.equals("Last 30 days")){
+        } else if (time.equals("month")){
             SimpleDateFormat format= new SimpleDateFormat("dd");
             for (int i=1; i <=30; i++){
                 dateStart = calendar.getTime();
@@ -144,7 +144,7 @@ public class ChartAdminController {
                 labelList.add(format.format(calendar.getTime()));
                 calendar.add(Calendar.HOUR_OF_DAY, -7);
             }
-        } else if (time.equals("Last month")){
+        } else if (time.equals("last-month")){
             SimpleDateFormat format= new SimpleDateFormat("dd");
             calendar.add(Calendar.MONTH, -1);
             for (int i=1; i <=30; i++){
@@ -169,7 +169,7 @@ public class ChartAdminController {
                 labelList.add(format.format(calendar.getTime()));
                 calendar.add(Calendar.HOUR_OF_DAY, -7);
             }
-        } else if (time.equals("Last 1 year")){
+        } else if (time.equals("last-year")){
             SimpleDateFormat format= new SimpleDateFormat("MM");
             for (int i=1; i <=12; i++){
                 dateStart = calendar.getTime();
